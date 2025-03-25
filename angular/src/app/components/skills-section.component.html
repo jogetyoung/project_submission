@@ -1,0 +1,36 @@
+<div mat-dialog-title>
+  <h1>Add Skills</h1>
+</div>
+
+<form [formGroup]="skillsForm" (ngSubmit)="onSubmit()" class="login-form">
+
+  <mat-form-field class="job-type-select">
+    <mat-label>Skills</mat-label>
+
+    <mat-chip-grid #chipGrid aria-label="Selected Locations">
+      @for (fruit of selectedSkills; track fruit) {
+      <mat-chip-row (removed)="remove(fruit)">
+        {{fruit.skill_name}}
+        <button matChipRemove><mat-icon>cancel</mat-icon></button>
+      </mat-chip-row>
+      }
+
+      <input matInput #countryInput type="text" placeholder="Skills" formControlName="skill_name"
+        [matAutocomplete]="country" [matChipInputFor]="chipGrid" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        (matChipInputTokenEnd)="add($event)">
+
+      <mat-autocomplete #country="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+          {{ option.skill_name}}</mat-option>
+      </mat-autocomplete>
+    </mat-chip-grid>
+  </mat-form-field>
+
+  <div mat-dialog-actions class="action-button">
+    <button style="margin: 10px;" mat-raised-button color="secondary" type="submit">
+      Update
+    </button>
+    <button mat-raised-button color="secondary" type="button" color="danger" [mat-dialog-close]="false">Cancel</button>
+  </div>
+
+</form>

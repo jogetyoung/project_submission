@@ -1,0 +1,162 @@
+/* Import the theme variables */
+@import './theme-variables.css';
+
+/* Global reset and base styles */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: var(--background-light);
+  color: var(--text-primary);
+}
+
+/* Typography improvements */
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  color: var(--primary-color);
+  font-weight: 500;
+}
+
+h1 { font-size: 28px; }
+h2 { font-size: 24px; }
+h3 { font-size: 20px; }
+h4 { font-size: 18px; }
+
+p {
+  line-height: 1.5;
+  margin-bottom: var(--spacing-md);
+}
+
+/* Card styling */
+.mat-card, .application-card, .signup-card, .login-card {
+  border-radius: var(--card-border-radius) !important;
+  box-shadow: var(--card-shadow) !important;
+  background-color: white !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mat-card:hover, .application-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Button styling */
+.mat-raised-button.mat-primary {
+  background-color: var(--primary-color) !important;
+}
+
+.mat-raised-button.mat-accent {
+  background-color: var(--secondary-color) !important;
+}
+
+/* Premium styling */
+.premium-badge {
+  background-color: var(--premium-color);
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  text-transform: uppercase;
+}
+
+/* Job listings */
+.job-listing {
+  border-left: 4px solid var(--secondary-color);
+  padding-left: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.job-title {
+  color: var(--primary-color);
+  font-weight: 500;
+  margin-bottom: var(--spacing-xs);
+}
+
+.job-company {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+/* Status badges */
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.status-active {
+  background-color: rgba(46, 204, 113, 0.2);
+  color: var(--success-color);
+}
+
+.status-pending {
+  background-color: rgba(243, 156, 18, 0.2);
+  color: var(--warning-color);
+}
+
+.status-closed {
+  background-color: rgba(189, 195, 199, 0.2);
+  color: var(--text-secondary);
+}
+
+/* Links styling */
+.title-underlined, .blue-underlined {
+  color: var(--secondary-color) !important;
+  text-decoration: none !important;
+  border-bottom: 1px solid var(--secondary-color);
+  cursor: pointer;
+  font-weight: 500;
+  transition: border-bottom 0.2s ease;
+}
+
+.title-underlined:hover, .blue-underlined:hover {
+  border-bottom: 1px solid transparent;
+}
+
+/* Form styling improvements */
+.mat-form-field {
+  width: 100%;
+  margin-bottom: var(--spacing-sm);
+}
+
+/* Tag styling */
+.tag {
+  background-color: var(--hover-color);
+  color: var(--text-secondary);
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 12px;
+  display: inline-block;
+  margin-right: 6px;
+  margin-bottom: 6px;
+}
+
+/* Profile picture styling */
+.profile-pic {
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Upgrade button styling */
+.upgrade-button {
+  background-color: var(--premium-color) !important;
+  color: var(--text-primary) !important;
+  border-radius: 20px !important;
+  padding: 0px 16px !important;
+  font-weight: 500 !important;
+  height: 36px !important;
+  line-height: 36px !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.upgrade-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+}

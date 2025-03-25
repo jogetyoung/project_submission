@@ -1,0 +1,117 @@
+.toggle {
+  width: 85%;
+  display: flex;
+  padding: 12px;
+  color: var(--text-secondary);
+  justify-content: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.toggle:hover {
+  cursor: pointer;
+  background-color: var(--hover-color);
+}
+
+.toggle mat-icon {
+  transition: transform 0.3s ease;
+}
+
+.item {
+  user-select: none;
+  background: transparent;
+  border-radius: 0 24px 24px 0;
+  margin: 4px 8px 4px 0;
+  transition: all 0.2s ease;
+  height: 48px !important;
+  position: relative;
+  overflow: visible; /* Changed from hidden to visible */
+  display: flex;
+  align-items: center;
+}
+
+.item:hover {
+  cursor: pointer;
+  background-color: var(--hover-color);
+}
+
+.item-selected {
+  background-color: var(--hover-color) !important;
+  color: var(--primary-color) !important;
+  font-weight: 500;
+}
+
+.item-selected::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background-color: var(--primary-color);
+  border-radius: 0 4px 4px 0;
+}
+
+mat-icon {
+  color: var(--text-secondary);
+}
+
+.item-selected mat-icon {
+  color: var(--primary-color);
+}
+
+.route-name {
+  padding: 0 16px;
+  color: var(--text-primary);
+  font-weight: 400;
+}
+
+.item-selected .route-name {
+  color: var(--primary-color);
+  font-weight: 500;
+}
+
+.notification-bubble {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 16px;
+  background-color: var(--error-color);
+  border-radius: 50%;
+  height: 8px;
+  width: 8px;
+  display: inline-block;
+  z-index: 2;
+}
+
+/* For displaying mat-icon notifications */
+mat-icon.notification-icon {
+  color: var(--error-color);
+  font-size: 16px;
+  height: 16px;
+  width: 16px;
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* src/app/nav-bars/side-nav-list.component.css */
+/* Add to your existing CSS */
+
+@media (max-width: 767px) {
+  .route-name {
+    display: none !important; /* Always hide text on mobile */
+  }
+
+  .item {
+    padding: 0 8px !important; /* Smaller padding */
+  }
+
+  .item mat-icon {
+    margin-right: 0 !important; /* No margin needed when text is hidden */
+  }
+
+  .toggle {
+    padding: 8px !important; /* Smaller toggle button */
+  }
+}

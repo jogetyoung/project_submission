@@ -1,0 +1,40 @@
+<button mat-raised-button color="primary" type="button" style="margin-right: 10px;" (click)="goback()">Back</button>
+<button mat-raised-button color="primary" (click)="saveJob(job)"> <mat-icon>work</mat-icon> Save This Role</button>
+
+<span
+          class="invalid-message"
+          *ngIf="invalidSaveMessage != ''">
+          {{invalidSaveMessage}}
+        </span>
+
+<div *ngIf="job; else loading" class="job-details">
+  <div class="job-info">
+    <h2>
+      <span style="display: inline;">{{ job.title }} &commat; </span>
+      <a [routerLink]="'/applicant/biz-profile/' + job.company_name">
+        <p class="blue-underlined" style="display: inline;" >
+          {{ job.company_name }}</p>
+      </a>
+    </h2>
+    <img [src]="job.company_logo" width="150px" height="150px" alt="Company Logo" [routerLink]="'/biz-profile/' + job.company_name">
+    <span>
+      <mat-icon color="primary"> date_range</mat-icon>
+      {{formatDate(job.publication_date)}} 
+      <mat-icon color="primary" style="margin-left: 20px;">label</mat-icon>
+      {{job.job_type}}
+      <mat-icon color="primary" style="margin-left: 20px;">location_on</mat-icon>
+      Required Location: {{job.candidate_required_location}}
+    </span> 
+    <br>
+    <div>
+      <p [innerHTML]="job.description"></p> 
+    </div> 
+  </div>
+  <div class="order-form">
+    <app-application-form [job]="job"></app-application-form>
+  </div>
+</div>
+
+<ng-template #loading>
+  <h2>Loading...</h2>
+</ng-template>

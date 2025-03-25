@@ -1,0 +1,96 @@
+@use '@angular/material' as mat;
+
+// Define your custom palette
+$primary-palette: (
+  50: #e5efee,
+  100: #bfd8d4,
+  200: #94beb8,
+  300: #69a49c,
+  400: #479187,
+  500: #2a6b67, // Primary color
+  600: #246360,
+  700: #1d5856,
+  800: #164e4c,
+  900: #0b3c3a,
+  contrast: (
+    50: rgba(0, 0, 0, 0.87),
+    100: rgba(0, 0, 0, 0.87),
+    200: rgba(0, 0, 0, 0.87),
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+  )
+);
+
+$accent-palette: (
+  50: #f1f4f2,
+  100: #dee4df,
+  200: #bcc8c0,
+  300: #9aaca1,
+  400: #7c9082, // Secondary color
+  500: #637566,
+  600: #5b6b5c,
+  700: #515e51,
+  800: #475246,
+  900: #343e36,
+  contrast: (
+    50: rgba(0, 0, 0, 0.87),
+    100: rgba(0, 0, 0, 0.87),
+    200: rgba(0, 0, 0, 0.87),
+    300: rgba(0, 0, 0, 0.87),
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+  )
+);
+
+$warn-palette: (
+  50: #f9edeb,
+  100: #f0d1cd,
+  200: #e3b2ab,
+  300: #d69289,
+  400: #cd7f70,
+  500: #c46d5e, // Accent/Warning color
+  600: #be6558,
+  700: #b75a4f,
+  800: #af5046,
+  900: #a33e35,
+  contrast: (
+    50: rgba(0, 0, 0, 0.87),
+    100: rgba(0, 0, 0, 0.87),
+    200: rgba(0, 0, 0, 0.87),
+    300: rgba(0, 0, 0, 0.87),
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+  )
+);
+
+// Define the palettes
+$custom-primary: mat.define-palette($primary-palette, 500);
+$custom-accent: mat.define-palette($accent-palette, 400);
+$custom-warn: mat.define-palette($warn-palette, 500);
+
+// Create the theme
+$custom-theme: mat.define-light-theme((
+  color: (
+    primary: $custom-primary,
+    accent: $custom-accent,
+    warn: $custom-warn,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0,
+));
+
+// Apply the theme to all components
+@include mat.all-component-themes($custom-theme);

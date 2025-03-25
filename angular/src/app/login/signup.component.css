@@ -1,0 +1,122 @@
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.title {
+  font-weight: 600;
+  padding-bottom: var(--spacing-md);
+  color: var(--primary-color);
+  text-align: center;
+}
+
+.signup-card {
+  margin-top: var(--spacing-lg);
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 500px;
+  padding: var(--spacing-xl);
+  background-color: white;
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-shadow);
+}
+
+@media screen and (max-width: 800px) {
+  .signup-card {
+    width: 100%;
+    padding: var(--spacing-md);
+  }
+}
+
+.user-type-radio {
+  display: flex;
+  justify-content: space-between;
+  width: 250px;
+  margin-bottom: var(--spacing-md);
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.signup-control {
+  width: 100%;
+  padding-top: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+}
+
+.password-hint-gap {
+  margin-bottom: var(--spacing-xl);
+}
+
+.invalid-message {
+  padding-bottom: var(--spacing-sm);
+  color: var(--error-color);
+  font-size: 14px;
+}
+
+.footer {
+  margin-top: var(--spacing-lg);
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.footer a {
+  color: var(--secondary-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.invalid {
+  color: var(--error-color);
+  font-weight: 500;
+}
+
+.valid {
+  color: var(--success-color);
+  font-weight: 500;
+}
+
+/* src/app/login/login.component.css */
+/* Keep your existing styles and add these */
+
+.login-card {
+  width: 100%;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.login-image {
+  max-width: 50%;
+  height: auto;
+  object-fit: contain;
+}
+
+@media (max-width: 767px) {
+  .bigcontainer {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .login-card {
+    max-width: 100%;
+    margin: 10px;
+    padding: 15px;
+  }
+
+  .login-image {
+    display: none;
+  }
+
+  .login-form button {
+    width: 100%;
+  }
+}

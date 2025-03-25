@@ -1,0 +1,24 @@
+<app-header [isLogoutDisabled]="true"></app-header>
+
+<mat-card class="signup-card">
+    <mat-card-title class="title">Sign Up</mat-card-title>
+
+  <mat-card-content>
+    <form [formGroup]="signupForm" (submit)="onUserTypeChanged()" class="signup-form">
+
+      <mat-radio-group formControlName="userType" aria-label="Select user type"
+        class="user-type-radio">
+        <mat-radio-button value="APPLICANT">Applicant</mat-radio-button>
+        <mat-radio-button value="BUSINESS">Business</mat-radio-button>
+      </mat-radio-group>
+
+      <button mat-fab extended color="primary" type="submit">Proceed</button>
+    </form>
+  </mat-card-content>
+
+
+  <mat-card-footer class="footer">
+      Have an account?
+      <a [routerLink]="['/login']">Log In</a>
+  </mat-card-footer>
+</mat-card>

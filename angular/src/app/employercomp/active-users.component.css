@@ -1,0 +1,126 @@
+/*.applicant-list {*/
+/*    flex: 1; */
+/*    }*/
+/*    */
+/*    .application-card {*/
+/*      margin-top: 20px;*/
+/*      margin-left: auto;*/
+/*      margin-right: auto;*/
+/*      width: 800px;*/
+/*      padding: 25px;*/
+/*      background-color: rgba(255, 255, 255, 0.2);*/
+/*    }*/
+
+/*    .background-container {*/
+/*      background-image: url('/assets/images/bluebg.jpg');*/
+/*      background-size: cover;*/
+/*      width: 100vw;*/
+/*      height: 100vh;*/
+/*      position: fixed; */
+/*      top: 200px;*/
+/*      right:10px;*/
+/*      z-index: -1;*/
+/*      opacity: 0.9;*/
+/*    }*/
+
+/*    .upgrade-button {*/
+/*      background-color: bisque;*/
+/*      border-radius: 10px; */
+/*      padding: 10px 10px;*/
+/*    }*/
+
+/*    p {*/
+/*      margin-bottom: 10px;*/
+/*      font-size: 16px;*/
+/*      line-height: 1.5;*/
+/*  }*/
+
+/*  a {*/
+/*      text-decoration: none;*/
+/*      color: #007bff;*/
+/*  }*/
+
+/*  a:hover {*/
+/*      text-decoration: underline;*/
+/*  }*/
+
+/*  .profile-pic {*/
+/*    width: 50px;*/
+/*    height: 50px;*/
+/*    border-radius: 50%; !* Makes the image circular *!*/
+/*    object-fit: cover; !* Ensures the image covers the circular area *!*/
+/*    object-position: center; !* Centers the image within the circular area *!*/
+/*    order: 1;*/
+/*  }*/
+
+.applicant-list {
+  flex: 1;
+  margin-bottom: var(--spacing-lg);
+}
+
+.application-card {
+  margin-top: var(--spacing-lg);
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 800px;
+  padding: var(--spacing-lg);
+  background-color: white;
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-shadow);
+}
+
+.background-container {
+  background-image: url('/assets/images/bluebg.jpg');
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 200px;
+  right: 10px;
+  z-index: -1;
+  opacity: 0.05;
+}
+
+.upgrade-button {
+  background-color: var(--premium-color);
+  color: var(--text-primary);
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.upgrade-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+p {
+  margin-bottom: var(--spacing-sm);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text-primary);
+}
+
+a {
+  text-decoration: none;
+  color: var(--secondary-color);
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: var(--secondary-dark);
+}
+
+.profile-pic {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  border: 2px solid white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  margin-right: var(--spacing-sm);
+}

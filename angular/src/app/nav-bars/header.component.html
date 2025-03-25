@@ -1,0 +1,12 @@
+<mat-toolbar class="header">
+    <div (click)="goHome()" class="logo-text">
+      <img src="/assets/images/nomad-nest-high-resolution-logo-transparent.png" alt="logo" class="logo">
+      <span>Nomad Nest</span>
+    </div>
+
+    <span class="toolbar-spacer"></span>
+    <button type="button" (click)="logout()" mat-button *ngIf="!isLogoutDisabled" aria-label="Logout">
+      <mat-icon>logout</mat-icon>
+      Logout
+    </button>
+  </mat-toolbar>

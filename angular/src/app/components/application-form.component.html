@@ -1,0 +1,45 @@
+<mat-card class="application-card">
+
+    <mat-card-header>
+        <mat-card-title class="title">
+            <h2>Interested?</h2>
+            <h3 *ngIf="job">Application for {{job.title}} at {{job.company_name}}
+            </h3> 
+        </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+        <form [formGroup]="appForm" (submit)="process()" class="app-form">
+            <mat-form-field class="login-control password-gap">
+                <mat-label>Enter your first name</mat-label>
+                <input matInput formControlName="firstName" type="text">
+                <mat-error *ngIf="appForm.get('firstName')!.errors != null">{{getValidationError('firstName')}}</mat-error>
+            </mat-form-field>
+        
+            <mat-form-field class="login-control">
+                <mat-label>Enter your last name</mat-label>
+                <input matInput formControlName="lastName" type="text">
+                <mat-error *ngIf="appForm.get('lastName')!.errors != null">{{getValidationError('lastName')}}</mat-error>
+            </mat-form-field>
+        
+            <mat-form-field class="login-control">
+                <mat-label>Email address</mat-label>
+                <input type="email" matInput formControlName="email">
+            </mat-form-field>
+            
+            <div class="upload-file-container">
+                <mat-label>Attach your resume*</mat-label>
+                <input type="file" formControlName="resume" #resumeUpload>
+                <mat-error *ngIf="appForm.get('resume')!.errors != null">{{getValidationError('resume')}}</mat-error>
+            </div>
+            <button mat-raised-button color="primary" type="submit" [disabled]="appForm.invalid">Submit Application</button>
+        </form>
+        
+        <span
+          class="invalid-message"
+          *ngIf="invalidInsertMessage != ''">
+          {{invalidInsertMessage}}
+        </span>
+    </mat-card-content>
+
+</mat-card>

@@ -1,0 +1,116 @@
+<div mat-dialog-title>
+    <h1>Edit Employment History</h1>
+</div>
+
+<form [formGroup]="empForm" (ngSubmit)="onSubmit()" class="login-form">
+
+    <div class="login-form" style="margin-bottom: 10px;">
+        <div class="form-group">
+            <label>This is my current role</label>
+            <input type="checkbox" (change)="checked($event)" formControlName="current_role" style="margin-left: 10px;">
+        </div>
+    </div> 
+
+    <div class="row">
+        <mat-form-field appearance="outline" style=" margin-right: 10px;">
+            <mat-label>Title</mat-label>
+            <input matInput type="text" placeholder="job title" formControlName="title">
+            <mat-error *ngIf="empForm.get('title')!.errors != null">{{getValidationError('title')}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Company</mat-label>
+            <input matInput type="text" formControlName="company">
+            <mat-error *ngIf="empForm.get('company')!.errors != null">{{getValidationError('company')}}</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="row">
+        <mat-form-field style=" margin-right: 10px;">
+            <mat-select placeholder="Select job type" formControlName="job_type">
+                <mat-option *ngFor="let type of jobtypes" [value]="type">
+                    {{type}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="empForm.get('job_type')!.errors != null">{{getValidationError('job_type')}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-select placeholder="Select location type" formControlName="location_type">
+                <mat-option *ngFor="let type of locationtype" [value]="type">
+                    {{type}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="empForm.get('location_type')!.errors != null">{{getValidationError('location_type')}}</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="row">
+        <mat-form-field appearance="outline">
+            <mat-label>Location</mat-label>
+            <input matInput type="text" placeholder="Enter your location" formControlName="location"
+                [matAutocomplete]="auto">
+            <mat-error *ngIf="empForm.get('location')!.errors != null">{{getValidationError('location')}}</mat-error>
+        </mat-form-field>
+    
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option">{{ option }}</mat-option>
+        </mat-autocomplete>
+    </div>
+
+
+    <mat-form-field class="description-control">
+        <mat-label>Description</mat-label>
+        <input matInput type="text" formControlName="job_description">
+    </mat-form-field>
+
+    <div class="row">
+        <mat-form-field appearance="outline" style=" margin-right: 10px;">
+            <mat-label>Start Month</mat-label>
+            <mat-select placeholder="Select start month" formControlName="start_month">
+                <mat-option *ngFor="let month of months" [value]="month">{{ month }}</mat-option>
+            </mat-select>
+            <mat-error
+                *ngIf="empForm.get('start_month')!.errors != null">{{getValidationError('start_month')}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Start Year</mat-label>
+            <mat-select placeholder="Select start year" formControlName="start_year">
+                <mat-option *ngFor="let year of years" [value]="year">{{ year }}</mat-option>
+            </mat-select>
+            <mat-error
+                *ngIf="empForm.get('start_year')!.errors != null">{{getValidationError('start_year')}}</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="row">
+        <mat-form-field appearance="outline" style=" margin-right: 10px;">
+            <mat-label>End Month</mat-label>
+            <mat-select placeholder="Select start month" formControlName="end_month" [disabled]="isCurrentRole">
+                <mat-option *ngFor="let month of months" [value]="month">{{ month }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="empForm.get('end_month')!.errors != null">{{getValidationError('end_month')}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>End Year</mat-label>
+            <mat-select placeholder="Select start year" formControlName="end_year" [disabled]="isCurrentRole">
+                <mat-option *ngFor="let year of years" [value]="year">{{ year }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="empForm.get('end_year')!.errors != null">{{getValidationError('end_year')}}</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div mat-dialog-actions class="action-button">
+        <button style="margin: 10px;" mat-raised-button color="secondary" type="submit" [disabled]="empForm.invalid">
+            Update
+        </button>
+        <button mat-raised-button color="secondary" type="button" 
+            [mat-dialog-close]="false">Cancel</button>
+    </div>
+
+    <div mat-dialog-actions class="action-button">
+        <button mat-raised-button color="warn" type="button" (click)="deleteThis()">Delete</button>
+    </div>
+</form>

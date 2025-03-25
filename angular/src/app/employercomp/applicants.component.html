@@ -1,0 +1,57 @@
+<div *ngIf=" job" class="job-details">
+
+
+    <div class="applicant-list">
+        <mat-card class="application-card">
+
+            <mat-card-header>
+                <mat-card-title class="title">
+                    <h2> Applicants for {{job.title}}</h2>
+                </mat-card-title>
+            </mat-card-header>
+
+            <mat-card-content *ngIf="allApplicants?.length !== 0">
+                <div class="applicant-card" *ngFor="let app of allApplicants">
+                  <img [src]="app.profile_pic || 'assets/default-profile.jpg'" width="50px" height="50px" class="profile-pic">
+                  {{app.firstName}} {{app.lastName}} --- applied {{ app.applied_date | date:'mediumDate' }}
+                  <div>
+                    <a [routerLink]="'/business/app-profile/' + app.id">(View Profile)</a>
+                    <a href="{{ app.resume }}" target="_blank">Resume</a>
+                  </div>
+                </div>
+              </mat-card-content>
+
+            <mat-card-content *ngIf="allApplicants.length === 0 ">
+                <p>This role has no applicants currently</p>
+                <div *ngIf="!job.promoted">
+                    <div class="action-icon" (click)="promote(job)">
+                        <button mat-button class="upgrade-button">
+                            Promote this job!
+                          </button>
+                    </div>
+                </div>
+            </mat-card-content>
+
+        </mat-card>
+
+    </div>
+
+    <div class="job-info">
+        <h2>
+            <span style="display: inline;">{{ job.title }} &commat; {{ job.company_name }} </span>
+          </h2>
+          <img [src]="job.company_logo" width="150px" height="150px" alt="Company Logo" style="margin-bottom: 20px;">
+          <span>
+            <mat-icon color="primary"> date_range</mat-icon>
+            {{formatDate(job.publication_date)}}
+            <mat-icon color="primary" style="margin-left: 20px;">label</mat-icon>
+            {{job.job_type}}
+            <mat-icon color="primary" style="margin-left: 20px;">location_on</mat-icon>
+            Required Location: {{job.candidate_required_location}}
+          </span>
+          <br>
+        <div>
+            <p [innerHTML]="job.description"></p>
+        </div>
+    </div>
+</div>

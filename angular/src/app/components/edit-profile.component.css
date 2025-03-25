@@ -1,0 +1,33 @@
+/*.login-form {*/
+/*    display: -webkit-box;*/
+/*    display: -moz-box;*/
+/*    display: -ms-flexbox;*/
+/*    display: -webkit-flex;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    align-items: center;*/
+/*  }*/
+
+/*  .description-control {*/
+/*    width: 70%;*/
+/*    padding-top: 10px;*/
+/*  }*/
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+  background-color: white;
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-shadow);
+}
+
+.description-control {
+  width: 70%;
+  padding-top: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}

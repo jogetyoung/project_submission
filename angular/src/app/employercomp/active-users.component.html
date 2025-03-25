@@ -1,0 +1,35 @@
+<app-search-bar></app-search-bar>
+
+<div class="applicant-list">
+
+    <div>
+        <button mat-button class="upgrade-button" (click)="goPremSearch()">
+            Advanced Search
+        </button>
+    </div>
+    <mat-card class="application-card">
+        <mat-card-header>
+            <mat-card-title class="title">
+                <h2>All users</h2>
+            </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content *ngIf="applicants">
+            <div *ngFor="let app of applicants">
+                <div class="row">
+                    <img [src]="app.profile_pic || 'assets/default-profile.jpg'" width="50px" height="50px" alt="" class="profile-pic">
+                    <p>
+                        <a [routerLink]="'/business/app-profile/' + app.id">{{app.firstName}} {{app.lastName}}  </a> 
+                        {{app.headline}}
+                    </p>
+                </div>
+                <mat-divider style="margin-bottom: 10px;"></mat-divider>
+            </div>
+
+        </mat-card-content>
+    </mat-card>
+
+</div>
+
+<div class="background-container">
+</div>

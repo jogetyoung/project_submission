@@ -1,0 +1,23 @@
+/*.custom-input{*/
+/*  margin-right: 10px;*/
+/*  flex: 1 1 600px;*/
+/*}*/
+
+/*.job-search-form {*/
+/*    display: flex;*/
+/*    flex-wrap: wrap;*/
+/*    justify-content: center;*/
+/*  }*/
+
+.custom-input {
+  margin-right: var(--spacing-md);
+  flex: 1 1 600px;
+  margin-bottom: var(--spacing-sm);
+}
+
+.job-search-form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}

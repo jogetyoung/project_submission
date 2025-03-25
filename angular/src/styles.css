@@ -1,0 +1,91 @@
+:root {
+  /* Color Palette */
+  --primary-color: #2A6B67;       /* Deep Teal */
+  --primary-dark: #1D4A47;        /* Darker Teal for hover/active states */
+  --secondary-color: #7C9082;     /* Sage Green */
+  --secondary-dark: #5A6B5F;      /* Darker Sage for hover/active states */
+  --accent-color: #C46D5E;        /* Terracotta */
+  --premium-color: #DEB841;       /* Gold for premium features */
+
+  /* Text Colors */
+  --text-primary: #333333;        /* Main text */
+  --text-secondary: #666666;      /* Secondary text */
+  --text-light: #FFFFFF;          /* Light text for dark backgrounds */
+
+  /* Background Colors */
+  --background-light: #F7F7F2;    /* Light background */
+  --hover-color: #E6E6E0;         /* Hover state background */
+  --border-color: #C8C8C0;        /* Border color */
+
+  /* Feedback Colors */
+  --error-color: #D64933;         /* Error/warning red */
+  --success-color: #3E8914;       /* Success green */
+
+  /* UI Elements */
+  --card-border-radius: 8px;      /* Card corners */
+  --button-border-radius: 4px;    /* Button corners */
+  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+}
+
+/* src/styles.css - Add at the end */
+
+/* Global responsive styles */
+@media (max-width: 767px) {
+  .mat-mdc-table {
+    width: 100%;
+  }
+
+  .mat-mdc-form-field {
+    width: 100%;
+  }
+
+  .mat-mdc-card {
+    padding: 12px !important;
+  }
+
+  h1 {
+    font-size: 24px !important;
+  }
+
+  h2 {
+    font-size: 20px !important;
+  }
+
+  .mobile-view .mat-mdc-button {
+    width: 100%;
+  }
+
+  button[type="submit"], button[type="button"] {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  /* Make expansion panels more mobile-friendly */
+  .mat-expansion-panel-body {
+    padding: 0 12px 16px !important;
+  }
+
+  /* Make tabs more mobile-friendly */
+  .mat-mdc-tab-header {
+    overflow-x: auto;
+  }
+
+  .mat-mdc-tab {
+    min-width: auto !important;
+    padding: 0 12px !important;
+  }
+
+  /* Ensure all images are responsive */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}

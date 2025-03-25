@@ -1,0 +1,60 @@
+<app-header [isLogoutDisabled]="true"></app-header>
+<div class="bigcontainer">
+
+<mat-card class="login-card">
+
+    <mat-card-header>
+      <mat-card-title class="title">Log In</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="container">
+        <p>{{dispMsg}}
+        </p>
+    </div>
+
+      <form [formGroup]="loginForm" (submit)="onLogin()" class="login-form">
+
+        <mat-radio-group formControlName="userType" aria-label="Select user type" class="user-type-radio">
+          <mat-radio-button value="APPLICANT" (change)="applicantchecked()">Applicant</mat-radio-button>
+          <mat-radio-button value="BUSINESS" (change)="businesschecked()" >Business</mat-radio-button>
+        </mat-radio-group>
+
+        <mat-form-field class="login-control">
+          <mat-label>Email address</mat-label>
+          <input type="email" matInput formControlName="email">
+          <mat-error *ngIf="loginForm.get('email')!.errors != null">{{getValidationError('email')}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="login-control password-gap">
+          <mat-label>Enter your password</mat-label>
+          <input matInput formControlName="password" [type]="isPasswordShown ? 'password' : 'text'">
+          <button mat-icon-button matSuffix type="button" (click)="isPasswordShown = !isPasswordShown" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="isPasswordShown">
+            <mat-icon>{{isPasswordShown ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="loginForm.get('password')!.errors != null">{{getValidationError('password')}}</mat-error>
+        </mat-form-field>
+
+        <span
+          class="invalid-message"
+          *ngIf="invalidLoginMessage != ''">
+          {{invalidLoginMessage}}
+        </span>
+
+        <button mat-fab extended color="primary" [disabled]="loginForm.invalid">Log In</button>
+      </form>
+    </mat-card-content>
+
+    <mat-card-footer class="footer">
+      <span>
+        New to Nomad Nest?
+        <a
+          [routerLink]="['/signup']">
+          Sign up for free
+        </a>
+      </span>
+    </mat-card-footer>
+
+  </mat-card>
+  <img src="/assets/images/2180.png" class="login-image">
+</div>

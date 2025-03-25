@@ -1,0 +1,70 @@
+<app-search-bar></app-search-bar>
+<button mat-raised-button color="primary" type="button" style="margin-bottom: 10px;" (click)="goback()">Back</button>
+
+<mat-card>
+  
+  <mat-card-content>
+    <button mat-button class="upgrade-button">
+      <a href="mailto:{{applicant.email}}">Send Email</a>
+    </button>
+
+    <div class="profile-header">
+
+      <div class="profile-picture">
+        <img [src]="profilePic || 'assets/default-profile.jpg'" width="150px" height="150px" class="profile-pic">
+      </div>
+      
+      <div class="profile-details">
+        <h2>{{applicant.firstName}} {{applicant.lastName}}</h2>
+        <p>{{applicant.headline}}</p>
+        <p>Location: {{applicant.location}}</p>
+        <p>Email: {{applicant.email}}</p>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+    <div class="profile-experience">
+      <div class="row">
+        <h3><strong>Experience</strong></h3>
+      </div>
+      <mat-list *ngFor="let x of empHist">
+        <mat-divider class="short-divider"></mat-divider>
+        <div class="row">
+          <h4 mat-line><strong>{{x.title}}</strong> | {{x.company}}</h4>
+        </div>
+        <p mat-line>{{x.location}} - {{x.job_type}}</p>
+        <span *ngIf="x.current_role">
+          <p mat-line>{{x.start_month}} {{x.start_year}} - Present</p>
+        </span>
+        <span *ngIf="!x.current_role">
+          <p mat-line>{{x.start_month}} {{x.start_year}} - {{x.end_month}} {{x.end_year}}</p>
+        </span>
+        <p>{{x.job_description}}</p>
+      </mat-list>
+    </div>
+
+    <mat-divider></mat-divider>
+    <div class="profile-summary">
+      <h3><strong>Resume</strong></h3> 
+      <div *ngIf="hasResume">
+        <a href="{{ applicant.resume }}" target="_blank">View</a>
+      </div>
+
+      <div *ngIf="!hasResume">
+        <p> No resume currently</p>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+    <div class="profile-summary">
+      <div class="row">
+        <h3><strong>Skills</strong>
+        </h3>
+      </div>
+      <div *ngFor="let x of empSkills">
+          <p >{{x.skill_name}}</p>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+

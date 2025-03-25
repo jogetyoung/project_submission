@@ -1,0 +1,139 @@
+<form [formGroup]="form" (submit)="searchJobRole()" class="job-search-form">
+  <div class="job-openings-header">
+    <h1>Current Job Openings</h1>
+    <div>
+      <p>Explore our current job openings and find your perfect match! We have a wide range of positions available,
+        spanning various industries and skill sets.</p>
+    </div>
+  </div>
+
+  <mat-form-field class="job-type-select">
+    <mat-label>I'm looking for the role of....</mat-label>
+    <input matInput formControlName="search" type="text" [matAutocomplete]="auto">
+  </mat-form-field>
+
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option">{{ option }}</mat-option>
+  </mat-autocomplete>
+
+  <mat-form-field class="job-type-select">
+    <mat-select placeholder="Select job type" formControlName="type">
+      <mat-option *ngFor="let type of jobtypes | async" [value]="type">{{ type }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="job-type-select">
+    <mat-label>Location</mat-label>
+
+    <mat-chip-grid #chipGrid aria-label="Selected Locations">
+      @for (fruit of selectedCountries; track fruit) {
+      <mat-chip-row (removed)="remove(fruit)">
+        {{fruit}}
+        <button matChipRemove><mat-icon>cancel</mat-icon></button>
+      </mat-chip-row>
+      }
+
+      <input matInput #countryInput type="text" placeholder="I want to work from...." formControlName="location"
+        [matAutocomplete]="country" [matChipInputFor]="chipGrid" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        (matChipInputTokenEnd)="add($event)">
+
+      <mat-autocomplete #country="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option *ngFor="let option of countryfilteredOptions$ | async" [value]="option">
+          {{ option}}</mat-option>
+      </mat-autocomplete>
+    </mat-chip-grid>
+  </mat-form-field>
+
+  <mat-form-field class="tag-select">
+    <mat-label>Tags</mat-label>
+
+    <mat-chip-grid #chipGridTag aria-label="Selected Tags">
+      @for (fruit of selectedTags; track fruit) {
+      <mat-chip-row (removed)="removeTag(fruit)">
+        {{fruit}}
+        <button matChipRemove><mat-icon>cancel</mat-icon></button>
+      </mat-chip-row>
+      }
+
+      <input matInput #tagInput type="text" placeholder="Jobs that contain tags...." formControlName="tag"
+        [matAutocomplete]="tag" [matChipInputFor]="chipGridTag" [matChipInputSeparatorKeyCodes]="separatorKeysCodesTags"
+        (matChipInputTokenEnd)="addTag($event)">
+
+      <mat-autocomplete #tag="matAutocomplete" (optionSelected)="selectedTag($event)">
+        <mat-option *ngFor="let option of tagfilteredOptions$ | async" [value]="option">
+          {{ option}}</mat-option>
+      </mat-autocomplete>
+    </mat-chip-grid>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit">Filter Search</button>
+  <button mat-raised-button color="primary" type="button" (click)="reset()" style="margin-bottom: 100px;">Reset Search
+  </button>
+</form>
+
+<div class="background-container">
+</div>
+
+<div style="width: 100%; overflow-x: auto;">
+  <table mat-table [dataSource]="jobs$" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef class="title-column"> Job Title </th>
+      <td mat-cell *matCellDef="let element" class="title-column">
+        <a [routerLink]="'/applicant/details/'+ element.id">
+          <span class="title-underlined">{{element.title}} </span>
+        </a>
+        <div class="tag-container">
+          <span *ngFor="let tag of element.tags" class="tag">[{{ capitalizeFirstLetter(tag) }}]</span>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="company_name">
+      <th mat-header-cell *matHeaderCellDef class="company-name-column"> Company </th>
+      <td mat-cell *matCellDef="let element" class="company-name-column">
+        <a [routerLink]="'/applicant/biz-profile/' + element.company_name" >
+          <span class="company-name-column" class="blue-underlined">{{element.company_name}} </span>
+        </a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="job_type">
+      <th mat-header-cell *matHeaderCellDef class="job-type-column"> Job type </th>
+      <td mat-cell *matCellDef="let element" class="job-type-column"> {{element.job_type}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="location">
+      <th mat-header-cell *matHeaderCellDef class="location-column"> Location </th>
+      <td mat-cell *matCellDef="let element" class="location-column">
+        {{element.candidate_required_location}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="period">
+      <th mat-header-cell *matHeaderCellDef class="period-column">Posted </th>
+      <td mat-cell *matCellDef="let element" class="period-column" style="font-size: small;">
+        {{ element.publication_date | date:'mediumDate'}}
+        <span *ngIf="element.promoted">Promoted!
+        <mat-icon class="promoted-icon">star</mat-icon>
+      </span>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+  </table>
+</div>
+
+
+<div *ngIf="isSearchEmpty" class="nosearch" style="margin-top: 20px;">
+  <h3>Sorry, we couldn't find any results matching your filtered search criteria. You might want to try again with a
+    broader or less specific requirement. Thank you!
+  </h3>
+  <button mat-raised-button color="primary" type="button" (click)="reset()" style="margin-bottom: 100px;">Reset Search
+  </button>
+</div>
+
+
+<mat-paginator [length]="totalJobs" [pageSize]="pageSize" (page)="onPageChange($event)">
+</mat-paginator>

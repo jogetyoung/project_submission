@@ -1,0 +1,74 @@
+/*.company-details {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*  }*/
+/*  */
+/*  .company-logo {*/
+/*    margin-right: 20px;*/
+/*  }*/
+/*  */
+/*  .job-list {*/
+/*    margin-top: 20px;*/
+/*  }*/
+
+/*  .title-underlined {*/
+/*    color: blue;*/
+/*    text-decoration: underline;*/
+/*    cursor: pointer;*/
+/*  }*/
+/*  */
+/*  .title-underlined:hover {*/
+/*    text-decoration: none;*/
+/*  }*/
+
+/*  .mat-header-cell {*/
+/*    font-size: 40px; */
+/*}*/
+
+/*th.mat-header-cell {*/
+/*  font-size: 40px; */
+/*}*/
+
+.company-details {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+  background-color: white;
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-shadow);
+}
+
+.company-logo {
+  margin-right: var(--spacing-xl);
+}
+
+.job-list {
+  margin-top: var(--spacing-lg);
+  background-color: white;
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-shadow);
+  padding: var(--spacing-lg);
+}
+
+.title-underlined {
+  color: var(--secondary-color);
+  text-decoration: none;
+  border-bottom: 1px solid var(--secondary-color);
+  cursor: pointer;
+  transition: border-bottom 0.2s ease;
+}
+
+.title-underlined:hover {
+  border-bottom: 1px solid transparent;
+}
+
+.mat-header-cell {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+th.mat-header-cell {
+  font-size: 14px;
+}

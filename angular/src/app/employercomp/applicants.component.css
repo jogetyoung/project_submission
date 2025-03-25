@@ -1,0 +1,131 @@
+.job-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+}
+
+.job-info {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-lg);
+  background-color: white;
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-shadow);
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
+}
+
+.applicant-list {
+  flex: 1;
+  min-width: 300px;
+}
+
+.title {
+  font-weight: 600;
+  padding-bottom: var(--spacing-md);
+  color: var(--primary-color);
+}
+
+.application-card {
+  margin-top: var(--spacing-lg);
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 500px;
+  padding: var(--spacing-lg);
+  background-color: white;
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-shadow);
+}
+
+@media screen and (max-width: 800px) {
+  .application-card {
+    width: 100%;
+  }
+}
+
+.user-type-radio {
+  display: flex;
+  justify-content: space-between;
+  width: 250px;
+  margin-bottom: var(--spacing-md);
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.login-control {
+  width: 100%;
+  padding-top: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+}
+
+.invalid-message {
+  padding-bottom: var(--spacing-sm);
+  color: var(--error-color);
+}
+
+.invalid {
+  color: var(--error-color);
+  font-weight: 500;
+}
+
+.valid {
+  color: var(--success-color);
+  font-weight: 500;
+}
+
+.upload-file-container {
+  padding-top: var(--spacing-xs);
+  padding-bottom: var(--spacing-xs);
+  text-align: center;
+  width: 100%;
+}
+
+.upgrade-button {
+  background-color: var(--premium-color);
+  color: var(--text-primary);
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.upgrade-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.applicant-card {
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--card-border-radius);
+  background-color: white;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.applicant-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.profile-pic {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  border: 2px solid white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  margin-right: var(--spacing-sm);
+}

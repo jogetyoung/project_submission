@@ -1,0 +1,45 @@
+<div mat-dialog-title>
+    <h1>Edit Profile Details</h1>
+</div>
+
+<form [formGroup]="empForm" (ngSubmit)="onSubmit()" class="login-form">
+
+    <div class="row">
+        <mat-form-field appearance="outline" style="margin-right: 10px;">
+            <mat-label>First Name</mat-label>
+            <input matInput type="text" placeholder="enter first name here" formControlName="firstName">
+            <mat-error *ngIf="empForm.get('firstName')!.errors != null">{{getValidationError('firstName')}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input matInput type="text" placeholder="enter last name here" formControlName="lastName">
+            <mat-error *ngIf="empForm.get('lastName')!.errors != null">{{getValidationError('lastName')}}</mat-error>
+        </mat-form-field>
+    </div>
+    
+    <mat-form-field class="description-control">
+        <mat-label>Headline - include a headline to receive more profile views.</mat-label>
+        <input matInput type="text" formControlName="headline">
+    </mat-form-field>
+
+    <div class="row">
+        <mat-form-field appearance="outline">
+            <mat-label>Location</mat-label>
+            <input matInput type="text" placeholder="Enter your location" formControlName="location" [matAutocomplete]="auto">
+            <mat-error *ngIf="empForm.get('location')!.errors != null">{{getValidationError('location')}}</mat-error>
+        </mat-form-field>
+
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option">{{ option }}</mat-option>
+          </mat-autocomplete>  
+    </div> 
+
+    <div mat-dialog-actions class="action-button">
+        <button style="margin: 10px;" mat-raised-button color="secondary" type="submit" [disabled]="empForm.invalid">
+            Update
+        </button>
+        <button mat-raised-button color="secondary" type="button" color="danger"
+            [mat-dialog-close]="false">Cancel</button>
+    </div>
+</form>

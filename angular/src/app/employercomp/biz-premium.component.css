@@ -1,0 +1,97 @@
+.custom-card {
+  max-width: 800px;
+  margin: var(--spacing-lg) auto;
+  padding: var(--spacing-xl);
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-shadow);
+  background-color: white;
+}
+
+.dialog-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 32px;
+  margin-bottom: var(--spacing-lg);
+  color: var(--primary-color);
+  font-weight: 600;
+  text-align: center;
+}
+
+.dialog-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: var(--spacing-lg);
+}
+
+.discount {
+  text-decoration: line-through;
+  color: var(--error-color);
+  margin-right: var(--spacing-xs);
+}
+
+.promoted-icon {
+  color: var(--premium-color);
+  vertical-align: middle;
+  margin-right: var(--spacing-xs);
+}
+
+button.mat-raised-button {
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: var(--button-border-radius);
+  padding: 8px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+button.mat-raised-button:hover {
+  background-color: var(--primary-dark);
+}
+
+.dialog-container p,
+.dialog-container li {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-md);
+}
+
+.dialog-container ul {
+  padding-left: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+}
+
+.dialog-container li {
+  margin-bottom: var(--spacing-sm);
+}
+
+/* src/app/employercomp/biz-premium.component.css */
+/* Keep your existing styles and add these */
+
+.custom-card {
+  width: 100%;
+  max-width: 800px;
+}
+
+@media (max-width: 767px) {
+  .custom-card {
+    max-width: 100%;
+    margin: 10px;
+    padding: 15px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .dialog-footer button {
+    width: 100%;
+    margin-bottom: 10px;
+    margin-left: 0 !important;
+  }
+}

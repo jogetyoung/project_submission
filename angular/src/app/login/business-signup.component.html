@@ -1,0 +1,57 @@
+<app-header [isLogoutDisabled]="true"></app-header>
+<div class="bigcontainer">
+<mat-card class="signup-card">
+    <mat-card-title class="title">Business Sign Up</mat-card-title>
+
+  <mat-card-content>
+    <form [formGroup]="signupForm" (submit)="onSignup()" class="signup-form">
+
+      <mat-form-field class="signup-control">
+        <mat-label>Official Company Name</mat-label>
+        <input type="text" matInput formControlName="officialName">
+        <mat-error *ngIf="signupForm.get('officialName')!.errors != null">{{getValidationError('officialName')}}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="signup-control">
+        <mat-label>Email address</mat-label>
+        <input type="email" matInput formControlName="email">
+        <mat-error *ngIf="signupForm.get('email')!.errors != null">{{getValidationError('email')}}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="signup-control password-hint-gap">
+        <mat-label>Enter your password</mat-label>
+        <input matInput formControlName="password" [type]="isPasswordShown ? 'password' : 'text'">
+        <mat-hint>
+          <mat-icon [fontIcon]="isPasswordConditionMet('minlength') ? 'check' : 'close'"
+            [class]="isPasswordConditionMet('minlength') ? 'valid' : 'invalid'"></mat-icon>
+          <span>At least 8 characters</span><br>
+          <mat-icon [fontIcon]="isPasswordConditionMet('noLowercase') ? 'check' : 'close'"
+            [class]="isPasswordConditionMet('noLowercase') ? 'valid' : 'invalid'"></mat-icon>
+          One lowercase letter<br>
+          <mat-icon [fontIcon]="isPasswordConditionMet('noUppercase') ? 'check' : 'close'"
+            [class]="isPasswordConditionMet('noUppercase') ? 'valid' : 'invalid'"></mat-icon>
+          One uppercase letter<br>
+          <mat-icon [fontIcon]="isPasswordConditionMet('noNumeric') ? 'check' : 'close'"
+            [class]="isPasswordConditionMet('noNumeric') ? 'valid' : 'invalid'"></mat-icon>
+          One number
+        </mat-hint>
+        <button mat-icon-button matSuffix type="button" (click)="togglePasswordShown()"
+          [attr.aria-label]="'Hide password'" [attr.aria-pressed]="isPasswordShown">
+          <mat-icon>{{isPasswordShown ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <span class="invalid-message" *ngIf="invalidLoginMessage != ''">
+        {{invalidLoginMessage}}
+      </span>
+
+      <button mat-fab extended color="primary" [disabled]="signupForm.invalid">Sign Up</button>
+    </form>
+  </mat-card-content>
+  <mat-card-footer class="footer">
+      Have an account?
+      <a [routerLink]="['/login']">Log In</a>
+  </mat-card-footer>
+</mat-card>
+<img src="/assets/images/signup.png" class="login-image">
+</div>

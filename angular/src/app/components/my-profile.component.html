@@ -1,0 +1,79 @@
+<mat-card style="margin-bottom: 30px;">
+  <mat-card-header>
+    <mat-card-title>My Profile</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="profile-header">
+      <div class="profile-picture"> 
+        <img [src]="profilePic || 'assets/default-profile.jpg'" width="150px" height="150px" style="order: 1;" class="profile-pic">
+        <button mat-button (click)="editPic(applicant)"
+          style="order: 2;  background-color: rgb(68, 68, 183); color: white; margin-bottom: 10px; margin-top: 10px;">
+          Update Profile Picture</button>
+          <button mat-button class="res-icon" (click)="editProfile(applicant)">Edit Profile
+            <mat-icon>edit</mat-icon>
+          </button>
+      </div>
+
+      <div class="profile-details">
+        <h2>{{applicant.firstName}} {{applicant.lastName}}</h2>
+        <p>{{applicant.headline}}</p>
+        <p>Location: {{applicant.location}}</p>
+        <p>Email: {{applicant.email}}</p>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+    <div class="profile-experience">
+      <div class="row">
+        <h3><strong>Experience</strong></h3>
+        <button mat-button class="res-icon" (click)="addExperience(applicant)">Add Experience
+          <mat-icon>add_circle</mat-icon>
+        </button>
+      </div>
+      <mat-list *ngFor="let x of empHist">
+        <mat-divider class="short-divider"></mat-divider>
+        <div class="row">
+          <h4 mat-line><strong>{{x.title}}</strong> | {{x.company}} | {{x.location_type}}</h4>
+          <button mat-button class="skills-icon"  (click)="editExperience(x)"> Edit
+            <mat-icon>edit</mat-icon> 
+          </button>
+        </div>
+        <p mat-line>{{x.location}} - {{x.job_type}}</p>
+        <span *ngIf="x.current_role">
+          <p mat-line>{{x.start_month}} {{x.start_year}} - Present</p>
+        </span>
+        <span *ngIf="!x.current_role">
+          <p mat-line>{{x.start_month}} {{x.start_year}} - {{x.end_month}} {{x.end_year}}</p>
+        </span>
+        <p>{{x.job_description}}</p>
+      </mat-list>
+    </div>
+
+    <mat-divider></mat-divider>
+    <div class="profile-summary">
+      <div class="row">
+        <h3><strong>Resume</strong></h3>
+        <button mat-button class="res-icon" (click)="editRes(applicant)">Update your resume</button>
+      </div>
+      {{dispMsg}}
+      <div *ngIf="hasResume">
+        <a href="{{ applicant.resume }}" target="_blank">Resume</a>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+    <div class="profile-summary">
+      <div class="row">
+        <h3><strong>Skills</strong>
+          <button mat-button class="skills-icon"  (click)="addSkills()">
+            <mat-icon >add_circle</mat-icon> Skills
+          </button>
+        </h3>
+      </div>
+      <div *ngFor="let x of empSkills">
+          <p >{{x.skill_name}}</p>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

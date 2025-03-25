@@ -1,0 +1,13 @@
+<div mat-dialog-title>
+    <h1>Update Profile Picture</h1>
+    <input type="file" #profilePicUpload>
+</div>
+
+
+    <div mat-dialog-actions class="action-button">
+        <button style="margin: 10px;" mat-raised-button color="secondary" (click)="onSubmit()">
+            Update
+        </button>
+        <button mat-raised-button color="secondary" type="button" color="danger"
+            [mat-dialog-close]="false">Cancel</button>
+    </div>

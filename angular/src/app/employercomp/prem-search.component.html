@@ -1,0 +1,93 @@
+
+<form [formGroup]="searchForm" (submit)="process()" class="job-search-form">
+
+    <label>Job title: </label>
+    <mat-form-field class="job-type-select">
+        <mat-label> Job Titles</mat-label>
+        <input matInput formControlName="title" type="text">
+    </mat-form-field>
+
+    <label>Location: </label>
+    <mat-form-field class="job-type-select">
+        <mat-label><mat-icon>add_circle</mat-icon> Candidate geographic location</mat-label>
+
+        <mat-chip-grid #chipGrid aria-label="Selected Locations">
+            @for (fruit of selectedCountries; track fruit) {
+            <mat-chip-row (removed)="locremove(fruit)">
+                {{fruit}}
+                <button matChipRemove><mat-icon>cancel</mat-icon></button>
+            </mat-chip-row>
+            }
+
+            <input matInput #countryInput type="text" placeholder="I want to work from...." formControlName="location"
+                [matAutocomplete]="country" [matChipInputFor]="chipGrid"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="locadd($event)">
+
+            <mat-autocomplete #country="matAutocomplete" (optionSelected)="locselected($event)">
+                <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+                    {{ option}}</mat-option>
+            </mat-autocomplete>
+        </mat-chip-grid>
+    </mat-form-field>
+
+    <label>Skills: </label>
+    <mat-form-field class="job-type-select">
+        <mat-label><mat-icon>add_circle</mat-icon> Profile containing Skills</mat-label>
+
+        <mat-chip-grid #chipGridSkill aria-label="Selected Locations">
+            @for (fruit of selectedSkills; track fruit) {
+            <mat-chip-row (removed)="remove(fruit)">
+                {{fruit.skill_name}}
+                <button matChipRemove><mat-icon>cancel</mat-icon></button>
+            </mat-chip-row>
+            }
+
+            <input matInput #skillInput type="text" placeholder="Skills" formControlName="skills"
+                [matAutocomplete]="skills" [matChipInputFor]="chipGridSkill"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodesTags" (matChipInputTokenEnd)="add($event)">
+
+            <mat-autocomplete #skills="matAutocomplete" (optionSelected)="selected($event)">
+                <mat-option *ngFor="let option of tagfilteredOptions$ | async" [value]="option">
+                    {{ option.skill_name}}</mat-option>
+            </mat-autocomplete>
+        </mat-chip-grid>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Filter Search</button>
+    <button mat-raised-button color="primary" type="button" (click)="reset()" style="margin-bottom: 100px;">Reset Search
+    </button>
+</form>
+
+
+<mat-card class="application-card">
+    <mat-card-header>
+        <mat-card-title class="title">
+            <h2>Search Results</h2>
+        </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+        <div *ngIf="displayResult">
+            <div *ngFor="let app of displayResult">
+                <div class="row">
+                    <img [src]="app.profile_pic || 'assets/default-profile.jpg'" width="50px" height="50px" class="profile-pic">
+                    <p>
+                        <a [routerLink]="'/business/app-profile/' + app.id">{{app.firstName}} {{app.lastName}}  </a> 
+                        {{app.headline}}
+                    </p>
+                </div>
+                <mat-divider style="margin-bottom: 10px;"></mat-divider>
+            </div>
+        </div>
+    </mat-card-content>
+
+    <div *ngIf="isSearchEmpty" class="nosearch" style="margin-top: 20px;">
+        <h3>Sorry, we couldn't find any results matching your filtered search criteria. You might want to try again with a
+          broader or less specific requirement. Thank you!
+        </h3>
+        <button mat-raised-button color="primary" type="button" (click)="reset()" style="margin-bottom: 100px;">Reset Search
+        </button>
+      </div>
+</mat-card>
+
+

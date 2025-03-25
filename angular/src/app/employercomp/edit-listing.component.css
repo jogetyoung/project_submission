@@ -1,0 +1,166 @@
+/*.application-card {*/
+/*  margin-top: 20px;*/
+/*  margin-left: auto;*/
+/*  margin-right: auto;*/
+/*  width: 800px;*/
+/*  padding: 25px;*/
+/*  overflow-y: auto;*/
+/*  max-height: 600px;*/
+/*}*/
+
+/*.title {*/
+/*  font-weight: bolder;*/
+/*  padding-bottom: 20px;*/
+/*}*/
+
+/*.application-card form {*/
+/*  height: 100%;*/
+/*}*/
+
+/*.application-card form mat-card-content {*/
+/*  height: 100%;*/
+/*}*/
+
+/*.application-card form mat-card-content form {*/
+/*  height: 100%;*/
+/*}*/
+
+/*.application-card form mat-card-content form mat-form-field {*/
+/*  width: calc(100% - 20px);*/
+/*}*/
+
+/*.application-card form mat-card-content form quill-editor {*/
+/*  width: calc(100% - 20px);*/
+/*}*/
+/*  */
+/*  .user-type-radio {*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*    width: 250px;*/
+/*    margin-bottom: 10px;*/
+/*  }*/
+/*  */
+/*  .login-form {*/
+/*    display: -webkit-box;*/
+/*    display: -moz-box;*/
+/*    display: -ms-flexbox;*/
+/*    display: -webkit-flex;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    align-items: center;*/
+/*  }*/
+/*  */
+/*  .login-control {*/
+/*    width: 100%;*/
+/*    padding-top: 10px;*/
+/*  }*/
+/*  */
+/*  .invalid-message {*/
+/*    padding-bottom: 10px;*/
+/*    color: red;*/
+/*  }*/
+/*  */
+/*  .invalid {*/
+/*    color: red;*/
+/*    font-weight: bolder;*/
+/*  }*/
+/*  */
+/*  .valid {*/
+/*    color: green;*/
+/*    font-weight: bolder;*/
+/*  }*/
+/*  */
+/*  .upload-file-container {*/
+/*    padding-top: 5px;*/
+/*    padding-bottom: 5px;*/
+/*    text-align: center;*/
+/*  }*/
+
+/**/
+
+.application-card {
+  margin-top: var(--spacing-lg);
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 800px;
+  padding: var(--spacing-xl);
+  background-color: white;
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-shadow);
+  overflow-y: auto;
+  max-height: 80vh;
+}
+
+.title {
+  font-weight: 600;
+  padding-bottom: var(--spacing-md);
+  color: var(--primary-color);
+  text-align: center;
+}
+
+.application-card form {
+  height: 100%;
+}
+
+.application-card form mat-card-content {
+  height: 100%;
+}
+
+.application-card form mat-card-content form {
+  height: 100%;
+}
+
+.application-card form mat-card-content form mat-form-field {
+  width: 100%;
+  margin-bottom: var(--spacing-sm);
+}
+
+.application-card form mat-card-content form quill-editor {
+  width: 100%;
+  margin-bottom: var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--card-border-radius);
+}
+
+.user-type-radio {
+  display: flex;
+  justify-content: space-between;
+  width: 250px;
+  margin-bottom: var(--spacing-md);
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.login-control {
+  width: 100%;
+  padding-top: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+}
+
+.invalid-message {
+  padding-bottom: var(--spacing-sm);
+  color: var(--error-color);
+}
+
+.invalid {
+  color: var(--error-color);
+  font-weight: 500;
+}
+
+.valid {
+  color: var(--success-color);
+  font-weight: 500;
+}
+
+.upload-file-container {
+  padding-top: var(--spacing-xs);
+  padding-bottom: var(--spacing-xs);
+  text-align: center;
+  width: 100%;
+}

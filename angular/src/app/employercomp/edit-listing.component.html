@@ -1,0 +1,90 @@
+<mat-card class="application-card">
+
+    <mat-card-header>
+        <mat-card-title class="title">Update this job post</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+        <form [formGroup]="empForm" (submit)="process()">
+
+            <label>Job title: </label>
+            <mat-form-field class="login-control password-gap">
+                <mat-label>Enter Job Title</mat-label>
+                <input matInput formControlName="title" type="text">
+                <mat-error *ngIf="empForm.get('title')!.errors != null">{{getValidationError('title')}}</mat-error>
+            </mat-form-field>
+
+            <label>Job Type: </label>
+            <mat-form-field class="login-control">
+                <mat-select placeholder="Select job type" formControlName="job_type">
+                    <mat-option *ngFor="let type of jobtypes" [value]="type">
+                        {{type}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="empForm.get('job_type')!.errors != null">{{getValidationError('job_type')}}</mat-error>
+            </mat-form-field>
+
+            <label>Required Location (if any): </label>
+            <mat-form-field class="login-control"> 
+                <mat-label>Location</mat-label> 
+
+                <mat-chip-grid #chipGrid aria-label="Selected Locations">
+                    @for (fruit of selectedCountries; track fruit) {
+                    <mat-chip-row (removed)="remove(fruit)">
+                        {{fruit}}
+                        <button matChipRemove [attr.aria-label]="'remove ' + fruit">
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                    </mat-chip-row>
+                    }
+
+                    <input matInput #countryInput type="text" placeholder="Enter your location"
+                        formControlName="candidate_required_location" [matAutocomplete]="auto"
+                        [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)">
+
+                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                        <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+                        {{ option}}</mat-option>
+                    </mat-autocomplete>
+                </mat-chip-grid>
+
+            </mat-form-field>
+            <div></div>
+
+            <label>Tags: </label>
+            <mat-form-field class="login-control">
+                <mat-label>Tags</mat-label>
+            
+                <mat-chip-grid #chipGridTag aria-label="Selected Tags">
+                  @for (fruit of selectedTags; track fruit) {
+                  <mat-chip-row (removed)="removeTag(fruit)">
+                    {{fruit}}
+                    <button matChipRemove><mat-icon>cancel</mat-icon></button>
+                  </mat-chip-row>
+                  }
+            
+                  <input matInput #tagInput type="text" placeholder="Jobs that contain tags...." formControlName="tags"
+                    [matAutocomplete]="tag" [matChipInputFor]="chipGridTag" [matChipInputSeparatorKeyCodes]="separatorKeysCodesTags"
+                    (matChipInputTokenEnd)="addTag($event)">
+            
+                  <mat-autocomplete #tag="matAutocomplete" (optionSelected)="selectedTag($event)">
+                    <mat-option *ngFor="let option of tagfilteredOptions$ | async" [value]="option">
+                      {{ option}}</mat-option>
+                  </mat-autocomplete>
+                </mat-chip-grid>
+              </mat-form-field>
+
+            <br>
+            <label>Job Description: </label>
+
+            <quill-editor class="login-control" formControlName="description" [styles]="{height: '300px'}"
+                #quillEditor></quill-editor>
+            <mat-error *ngIf="empForm.get('description')!.errors != null">{{getValidationError('description')}}</mat-error>
+
+            <button mat-raised-button color="primary" type="submit">Submit Update</button>
+            <button mat-raised-button color="primary" type="button" (click)="close()" style="margin-left: 10px;">Close</button>
+        </form>
+    </mat-card-content>
+
+</mat-card>

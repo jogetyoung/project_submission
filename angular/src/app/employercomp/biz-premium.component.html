@@ -1,0 +1,22 @@
+<mat-card class="custom-card"> <!-- Add custom-card class to mat-card -->
+  <div class="dialog-container">
+    <div>
+      <h1 mat-dialog-title class="title">Become a Premium Member on Nomad Nest!</h1>
+      <p>Enjoy features like:</p>
+      <ul>
+        <li><mat-icon class="promoted-icon">flash_on</mat-icon> Promoting your job listings</li>
+        <li><mat-icon class="promoted-icon">search</mat-icon> Advanced searches for applicants</li>
+      </ul>
+    </div>
+
+    <div class="dialog-footer" mat-dialog-actions align="end">
+      <span class="spacer"></span>
+      <button mat-raised-button color="primary" (click)="proceedToPayment()">
+        Join for only <span class="discount">$10 USD</span> <strong>$5 USD</strong> monthly!
+      </button>
+      <button mat-raised-button color="primary" (click)="goback()" style="margin-left: 20px;">
+        Back
+      </button>
+    </div>
+  </div>
+</mat-card>

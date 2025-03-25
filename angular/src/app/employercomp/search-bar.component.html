@@ -1,0 +1,13 @@
+<form [formGroup]="form" (submit)="searchUsers()" class="job-search-form">
+    <mat-form-field class="custom-input">
+      <mat-label>Search users..</mat-label>
+      <input matInput formControlName="search" type="text" [matAutocomplete]="auto">
+    </mat-form-field>
+  
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option" (click)="goProfile(option)">
+        {{option.firstName}} {{option.lastName}} | {{ option.headline }}</mat-option>
+    </mat-autocomplete>
+
+    <button mat-raised-button color="primary" type="submit">Search</button>
+  </form>

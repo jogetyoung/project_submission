@@ -1,0 +1,123 @@
+.title {
+  font-weight: 600;
+  padding-bottom: var(--spacing-md);
+  color: var(--primary-color);
+}
+
+.application-card {
+  margin-top: var(--spacing-lg);
+  margin-left: auto;
+  margin-right: auto;
+  width: 500px;
+  padding: var(--spacing-xl);
+  background-color: white;
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-shadow);
+}
+
+@media screen and (max-width: 800px) {
+  .application-card {
+    width: 100%;
+  }
+}
+
+.user-type-radio {
+  display: flex;
+  justify-content: space-between;
+  width: 250px;
+  margin-bottom: var(--spacing-md);
+}
+
+.app-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.login-control {
+  width: 100%;
+  padding-top: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+}
+
+.invalid-message {
+  padding-bottom: var(--spacing-sm);
+  color: var(--error-color);
+}
+
+.invalid {
+  color: var(--error-color);
+  font-weight: 500;
+}
+
+.valid {
+  color: var(--success-color);
+  font-weight: 500;
+}
+
+.upload-file-container {
+  width: 100%;
+  margin-top: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.upload-file-container mat-label {
+  font-size: 1.1em;
+  margin-bottom: var(--spacing-sm);
+}
+
+.upload-file-container input[type="file"] {
+  border: 1px dashed var(--border-color);
+  padding: var(--spacing-md);
+  border-radius: var(--card-border-radius);
+  background-color: var(--hover-color);
+  width: 100%;
+  font-size: 1em;
+  transition: all 0.3s ease;
+}
+
+.upload-file-container input[type="file"]:hover {
+  background-color: rgba(52, 152, 219, 0.05);
+  border-color: var(--secondary-color);
+}
+
+button {
+  margin-top: var(--spacing-md);
+  background-color: var(--primary-color);
+  color: white;
+  padding: 8px 16px;
+  border-radius: var(--button-border-radius);
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: var(--primary-dark);
+}
+
+/* src/app/components/application-form.component.css */
+/* Keep your existing styles and add these */
+
+.application-card {
+  width: 100%;
+  max-width: 500px;
+}
+
+@media (max-width: 767px) {
+  .application-card {
+    max-width: 100%;
+    margin: 10px;
+    padding: 15px;
+  }
+
+  .app-form button {
+    width: 100%;
+  }
+
+  .login-control {
+    width: 100%;
+  }
+}

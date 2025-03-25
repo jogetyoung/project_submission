@@ -1,0 +1,74 @@
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+mat-toolbar {
+  background-color: white !important;
+  color: var(--text-primary) !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  height: 64px;
+}
+
+.logo-text {
+  display: inline-flex;
+  align-items: center;
+  color: var(--primary-color);
+  font-weight: 500;
+  font-size: 20px;
+  transition: color 0.2s ease;
+}
+
+.logo-text:hover {
+  cursor: pointer;
+  color: var(--secondary-color);
+}
+
+.logo {
+  object-fit: contain;
+  height: 40px;
+  margin-right: 12px;
+  transition: transform 0.3s ease;
+}
+
+.logo-text:hover .logo {
+  transform: scale(1.05);
+}
+
+.premium {
+  display: inline-block;
+  background-color: var(--premium-color);
+  color: var(--text-primary);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 12px;
+  margin-left: 8px;
+  text-transform: uppercase;
+}
+
+/* Logout button styling */
+button[aria-label="Logout"] {
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--button-border-radius);
+  padding: 0 16px;
+  height: 36px;
+  transition: all 0.2s ease;
+}
+
+button[aria-label="Logout"]:hover {
+  background-color: var(--hover-color);
+  border-color: var(--text-secondary);
+}
+
+button[aria-label="Logout"] mat-icon {
+  margin-right: 4px;
+  font-size: 18px;
+  height: 18px;
+  width: 18px;
+  color: var(--text-secondary);
+}

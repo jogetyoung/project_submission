@@ -1,0 +1,55 @@
+/*.content-container {*/
+/*  height: calc(100vh - 64px);*/
+/*  box-sizing: border-box;*/
+/*  padding: 20px 100px;*/
+/*  background-color: var(--background-light);*/
+/*  overflow-y: auto;*/
+/*}*/
+
+/*mat-sidenav {*/
+/*  background-color: white;*/
+/*  border-right: 1px solid var(--border-color);*/
+/*  transition: width 0.3s ease;*/
+/*}*/
+
+/*mat-sidenav-container {*/
+/*  height: calc(100vh - 64px);*/
+/*}*/
+
+/* src/app/nav-bars/side-nav.component.css */
+.content-container {
+  height: calc(100vh - 64px);
+  box-sizing: border-box;
+  background-color: var(--background-light);
+  overflow-y: auto;
+}
+
+mat-sidenav {
+  background-color: white;
+  border-right: 1px solid var(--border-color);
+  transition: width 0.3s ease;
+}
+
+mat-sidenav-container {
+  height: calc(100vh - 64px);
+}
+
+/* Desktop styles */
+@media (min-width: 768px) {
+  .content-container {
+    padding: 20px 100px;
+  }
+}
+
+/* Mobile styles */
+.mobile-sidenav {
+  width: 60px !important; /* Narrow sidebar on mobile */
+}
+
+.mobile-content {
+  margin-left: 60px !important; /* Fixed margin for mobile */
+}
+
+.mobile-padding {
+  padding: 10px !important; /* Less padding on mobile */
+}

@@ -1,0 +1,25 @@
+
+<button mat-raised-button color="primary" type="button" style="margin-right: 10px; margin-bottom: 10px;" (click)="goback()">Back</button>
+<h2>More jobs from {{companyname}}</h2>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef> Role </th>
+      <td mat-cell *matCellDef="let element"> 
+        <strong>{{ element.title }}</strong> --- posted {{ getTimeDifference(element.publication_date) }}
+      </td>
+    </ng-container>
+
+    
+    <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef class="location-column"> Action </th>
+        <td mat-cell *matCellDef="let element" class="location-column">
+          <a [routerLink]="'/applicant/details/'+ element.id">
+            <span class="title-underlined" >Apply / View Details
+            </span>
+          </a>
+      </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
