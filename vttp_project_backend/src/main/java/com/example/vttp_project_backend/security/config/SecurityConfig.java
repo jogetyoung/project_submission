@@ -35,7 +35,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/**","/api/auth/**", "/api/**", "/api/repo/**","/admin/**", "/admin/prometheus/**", "/admin/health", "/admin/loggers").permitAll()
+                        auth.requestMatchers("/**","/api/auth/**", "/api/**", "/api/repo/**","/actuator/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .userDetailsService(authSvc)

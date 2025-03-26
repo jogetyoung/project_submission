@@ -11,7 +11,10 @@ import com.example.vttp_project_backend.repo.ListingsRepo;
 import com.example.vttp_project_backend.repo.s3Repo;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Gauge;
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Timer;
 import io.micrometer.core.instrument.composite.CompositeMeterRegistry;
+import jakarta.annotation.PostConstruct;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,30 +42,85 @@ public class JobService {
     @Autowired
     BizJobRepo bizJobRepo;
 
-    private Counter saveCounter = null;
+    private Counter saveCounter;
     private Gauge memoryUsage;
 
-    public JobService(CompositeMeterRegistry meterRegistry) {
-        saveCounter = meterRegistry.counter("save.count");
+    @Autowired
+    private MeterRegistry meterRegistry;
+
+    //    public JobService(CompositeMeterRegistry meterRegistry) {
+//        saveCounter = meterRegistry.counter("save.count");
+//        memoryUsage = Gauge.builder("myapp.memory.usage", Runtime.getRuntime(), Runtime::totalMemory)
+//                           .description("Memory Usage")
+//                           .register(meterRegistry);
+//    }
+    @PostConstruct
+    public void init() {
+        saveCounter = Counter.builder("save.count")
+                .description("Number of saved bookmarks")
+                .register(meterRegistry);
+
         memoryUsage = Gauge.builder("myapp.memory.usage", Runtime.getRuntime(), Runtime::totalMemory)
-                           .description("Memory Usage")
-                           .register(meterRegistry);
+                .description("Memory Usage")
+                .register(meterRegistry);
+
+        // Add to init() method:
+        Counter applicationCounter = Counter.builder("job.applications.count")
+                .description("Number of job applications submitted")
+                .register(meterRegistry);
+
+        Timer applicationTimer = Timer.builder("job.application.time")
+                .description("Time taken to process a job application")
+                .register(meterRegistry);
+
+
     }
 
     @Transactional(rollbackFor = UpdatingException.class)
     public Boolean insertNewApplication(InputStream is, String contentType, long length, String userid, String jobid) throws UpdatingException {
-        LocalDateTime currentDate = LocalDateTime.now().plusHours(8);
-        // System.out.println("CURRENT DATE" + currentDate);
-        String resumeId = userid + "/" + jobid;
-        String url = s3repo.saveToS3(resumeId, is, contentType, length);
-        // String url = s3Repo.getImageUrl("resume/%s".formatted(resumeId)); 
+        // Use Timer to measure execution time
+        return Timer.builder("job.application.time")
+                .description("Time taken to process a job application")
+                .tag("jobId", jobid)  // Add useful tags for filtering
+                .register(meterRegistry)
+                .record(() -> {
+                    try {
+                        LocalDateTime currentDate = LocalDateTime.now().plusHours(8);
+                        String resumeId = userid + "/" + jobid;
+                        String url = s3repo.saveToS3(resumeId, is, contentType, length);
 
-        if ((jobRepo.insertNewApplication(resumeId, userid, jobid, url, currentDate)) &&
-            (jobRepo.increaseApplicationCount(jobid, currentDate))){
-                return true;
-            } else {
-                throw new UpdatingException("You already applied for this job :)");
-            }
+                        // Track S3 upload sizes
+                        meterRegistry.counter("job.application.file.size")
+                                .increment(length);
+
+                        if ((jobRepo.insertNewApplication(resumeId, userid, jobid, url, currentDate)) &&
+                                (jobRepo.increaseApplicationCount(jobid, currentDate))) {
+
+                            // Increment the application counter
+                            meterRegistry.counter("job.applications.count").increment();
+
+                            return true;
+                        } else {
+                            throw new UpdatingException("You already applied for this job :)");
+                        }
+                    } catch (UpdatingException ex) {
+                        // Increment a separate counter for duplicate applications
+                        meterRegistry.counter("job.applications.duplicates").increment();
+                        try {
+                            throw ex;
+                        } catch (UpdatingException e) {
+                            throw new RuntimeException(e);
+                        }
+                    } catch (Exception ex) {
+                        // Track other failures
+                        meterRegistry.counter("job.applications.errors").increment();
+                        try {
+                            throw new UpdatingException("Error processing application: " + ex.getMessage());
+                        } catch (UpdatingException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                });
     }
 
     public Boolean updateLastSeen(String jobid) {
@@ -97,7 +155,7 @@ public class JobService {
     @Transactional(rollbackFor = UpdatingException.class)
     public Boolean insertNewBookmark(String userid, String jobid) throws UpdatingException {
         saveCounter.increment();
-        if ((jobRepo.insertNewBookmark(userid, jobid)) && (jobRepo.increaseBookmarkCount(jobid))){
+        if ((jobRepo.insertNewBookmark(userid, jobid)) && (jobRepo.increaseBookmarkCount(jobid))) {
             return true;
         } else {
             throw new UpdatingException("You already saved this job");
@@ -118,8 +176,8 @@ public class JobService {
     }
 
     @Transactional(rollbackFor = UpdatingException.class)
-    public Boolean removeSavedJob(String userid, String jobid) throws UpdatingException { 
-        if ((jobRepo.removeSavedJob(userid, jobid)) && (jobRepo.decreaseBookmarkCount(jobid))){
+    public Boolean removeSavedJob(String userid, String jobid) throws UpdatingException {
+        if ((jobRepo.removeSavedJob(userid, jobid)) && (jobRepo.decreaseBookmarkCount(jobid))) {
             return true;
         } else {
             throw new UpdatingException("error removing bookmark");
@@ -127,25 +185,25 @@ public class JobService {
     }
 
     @Transactional(rollbackFor = UpdatingException.class)
-    public Boolean updatePromoted(String id) throws UpdatingException{
-        if(jobRepo.updatePromoted(id) && listingsRepo.updatePromoted(id) != null){ 
+    public Boolean updatePromoted(String id) throws UpdatingException {
+        if (jobRepo.updatePromoted(id) && listingsRepo.updatePromoted(id) != null) {
             return true;
         } else {
             throw new UpdatingException("error updating promoted job status ");
         }
-    } 
+    }
 
-    public List<Skill> getSkills(){
+    public List<Skill> getSkills() {
         return jobRepo.getSkills();
     }
 
-    public Boolean insertPostWithLogo(InputStream is, String contentType, long length, Job post) { 
+    public Boolean insertPostWithLogo(InputStream is, String contentType, long length, Job post) {
         Random rand = new Random();
         Long jobid = 10000000 + rand.nextLong(90000000);
-        post.setId(jobid); 
+        post.setId(jobid);
 
-        LocalDateTime currentDate = LocalDateTime.now().plusHours(8); 
-        post.setPublication_date(currentDate); 
+        LocalDateTime currentDate = LocalDateTime.now().plusHours(8);
+        post.setPublication_date(currentDate);
 
         String url = s3repo.saveToS3(jobid.toString(), is, contentType, length);
         post.setCompany_logo(url);
@@ -158,7 +216,6 @@ public class JobService {
 
         return false;
     }
-
 
 
 }
