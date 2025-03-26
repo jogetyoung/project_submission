@@ -1,22 +1,4 @@
-/*.content-container {*/
-/*  height: calc(100vh - 64px);*/
-/*  box-sizing: border-box;*/
-/*  padding: 20px 100px;*/
-/*  background-color: var(--background-light);*/
-/*  overflow-y: auto;*/
-/*}*/
 
-/*mat-sidenav {*/
-/*  background-color: white;*/
-/*  border-right: 1px solid var(--border-color);*/
-/*  transition: width 0.3s ease;*/
-/*}*/
-
-/*mat-sidenav-container {*/
-/*  height: calc(100vh - 64px);*/
-/*}*/
-
-/* src/app/nav-bars/side-nav.component.css */
 .content-container {
   height: calc(100vh - 64px);
   box-sizing: border-box;

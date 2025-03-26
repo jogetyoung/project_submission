@@ -120,11 +120,11 @@ export class PremSearchComponent implements OnInit {
 
   locadd(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
-  
+
     if (value && !this.selectedCountries.includes(value)) {
       this.selectedCountries.push(value);
     }
-  
+
     event.chipInput!.clear();
     this.searchForm.get('location')?.setValue(null);
   }
@@ -159,7 +159,6 @@ export class PremSearchComponent implements OnInit {
     let filterSkills: Skill[] = this.selectedSkills
 
     if (search !== null && filterLocations.length === 0 && filterSkills.length === 0) {
-      // console.log('only search populated')
       this.sub = this.filterStore.getMatchingJobs(search)
         .subscribe(jobs => {
           this.displayResult = jobs;
@@ -188,7 +187,6 @@ export class PremSearchComponent implements OnInit {
     }
 
     if (search !== null && filterLocations.length === 0 && filterSkills.length !== 0) {
-      // console.log('only search and skills populated')
       this.sub = this.filterStore.getMatchingJobsandSkills(search, filterSkills)
         .subscribe(jobs => {
           this.displayResult = jobs;
@@ -196,7 +194,6 @@ export class PremSearchComponent implements OnInit {
     }
 
     if (search === null && filterLocations.length !== 0 && filterSkills.length !== 0) {
-      // console.log('only locations and skills populated')
       this.sub = this.filterStore.getMatchingLocationsandSkills(filterLocations, filterSkills)
         .subscribe(jobs => {
           this.displayResult = jobs;
@@ -204,7 +201,6 @@ export class PremSearchComponent implements OnInit {
     }
 
     if (search !== null && filterLocations.length !== 0 && filterSkills.length !== 0) {
-      // console.log('only locations and skills populated')
       this.sub = this.filterStore.getMatchingAll(search, filterLocations, filterSkills)
         .subscribe(jobs => {
           this.displayResult = jobs;

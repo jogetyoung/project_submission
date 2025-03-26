@@ -98,8 +98,6 @@ button:hover {
   background-color: var(--primary-dark);
 }
 
-/* src/app/components/application-form.component.css */
-/* Keep your existing styles and add these */
 
 .application-card {
   width: 100%;

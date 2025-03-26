@@ -16,7 +16,6 @@ export class AppComponent implements OnInit{
   ngOnInit() {
     this.responsiveService.isMobile$.subscribe(mobile => {
       this.isMobile = mobile;
-      // Set a CSS class on the body for global mobile styles
       if (mobile) {
         document.body.classList.add('mobile-view');
       } else {

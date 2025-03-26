@@ -24,31 +24,44 @@ export class JobsListingComponent implements OnInit {
   private fb = inject(FormBuilder); form!: FormGroup
   private jobSubscription!: Subscription;
 
+  //data source for jobs table
   dataSource!: MatTableDataSource<any>
 
   allJobs: Job[] = []
   jobs$: Job[] = []
+
+  //using observable for my drop down options
   jobtypes!: Observable<string[]>;
   filteredOptions$!: Observable<string[]>;
   countryfilteredOptions$!: Observable<string[]>;
   tagfilteredOptions$!: Observable<string[]>;
+
+
   locations!: string[]
   tags!: string[]
+
   displayedColumns: string[] = ['title', 'company_name', 'job_type', 'location', 'period']
 
+  //handling pagination
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   totalJobs!: number
   pageSize = 20;
 
+  //location input field reference
   @ViewChild('countryInput') countryInput!: ElementRef
   selectedCountries: string[] = []
 
+  //tags input reference
   @ViewChild('tagInput') tagInput!: ElementRef
   selectedTags: string[] = []
 
+  //key codes for chip separator
   separatorKeysCodes: number[] = [ENTER, COMMA];
   separatorKeysCodesTags: number[] = [ENTER, COMMA];
+
+  //flag for empty search results
   isSearchEmpty: boolean = false
+
   ngOnInit(): void {
     this.getAllJobs()
     this.form = this.createForm()
@@ -57,6 +70,7 @@ export class JobsListingComponent implements OnInit {
     this.selectedCountries.push("Worldwide", "USA");
   }
 
+  //fetch all jobs from service and set up observables for filtering
   private getAllJobs() {
     this.listSvc.getJobs().then(result => {
       this.allJobs = result
@@ -80,11 +94,13 @@ export class JobsListingComponent implements OnInit {
     })
   }
 
+  //filter function for location
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
     return this.locations.filter(fruit => fruit.toLowerCase().includes(filterValue));
   }
 
+  //filter tag function
   private _filtertags(value: string): string[] {
     const filterValue = value.toLowerCase();
     return this.tags.filter(fruit => fruit.toLowerCase().includes(filterValue));
@@ -100,10 +116,12 @@ export class JobsListingComponent implements OnInit {
     return ViewService.getTimeDifference(date)
   }
 
+  //capitalize the first letter of Jobs
   capitalizeFirstLetter(str: string): string {
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   }
 
+  //handle pagination
   onPageChange(event: any): void {
     const pageIndex = event.pageIndex;
     const pageSize = event.pageSize;
@@ -113,6 +131,7 @@ export class JobsListingComponent implements OnInit {
     });
   }
 
+  //selection of location from dropdown
   selected(event: MatAutocompleteSelectedEvent): void {
     const selectedValue = event.option.viewValue;
 
@@ -124,6 +143,7 @@ export class JobsListingComponent implements OnInit {
     this.form.get('location')?.setValue(null);
   }
 
+  //handle adding location
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
 
@@ -135,11 +155,13 @@ export class JobsListingComponent implements OnInit {
     this.form.get('location')?.setValue(null);
   }
 
+  //handles removing location chip
   remove(fruit: string): void {
     const index = this.selectedCountries.indexOf(fruit);
     if (index >= 0) { this.selectedCountries.splice(index, 1); }
   }
 
+  //handle selection of tag from dropdown
   selectedTag(event: MatAutocompleteSelectedEvent): void {
     const selectedValue = event.option.viewValue;
 
@@ -151,6 +173,7 @@ export class JobsListingComponent implements OnInit {
     this.form.get('tag')?.setValue(null);
   }
 
+  //handle adding tag
   addTag(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
 
@@ -167,6 +190,7 @@ export class JobsListingComponent implements OnInit {
     if (index >= 0) { this.selectedTags.splice(index, 1); }
   }
 
+  //resets filters and displays job results
   reset() {
     this.isSearchEmpty = false
     this.filterStore.reinitJobs(this.allJobs)
@@ -177,6 +201,7 @@ export class JobsListingComponent implements OnInit {
     this.selectedTags = []
   }
 
+  //process the job search with selected filters
   searchJobRole() {
     this.isSearchEmpty = false
     this.filterStore.reinitJobs(this.allJobs)
@@ -185,13 +210,13 @@ export class JobsListingComponent implements OnInit {
     let filterLocations: string[] = this.selectedCountries
     let filtertags: string[] = this.selectedTags
 
+    //handle mix and math of filters
     if (search === null && type === null && filterLocations.length > 0 && filtertags.length === 0) {
       this.jobSubscription = this.filterStore.getMatchingLocations(filterLocations)
         .subscribe(jobs => {
           this.jobs$ = jobs;
           this.totalJobs = jobs.length
         });
-      // console.log('only location populated SEARCH RESULTS>>>', this.jobs$)
     }
 
     if (type === null && search !== null && filterLocations.length === 0 && filtertags.length === 0) {
@@ -200,7 +225,6 @@ export class JobsListingComponent implements OnInit {
           this.jobs$ = jobs;
           this.totalJobs = this.jobs$.length;
         });
-      // console.log('only search populated SEARCH RESULTS>>>', this.jobs$)
     }
 
     if (search === null && type !== null && filterLocations.length === 0 && filtertags.length === 0) {
@@ -249,7 +273,6 @@ export class JobsListingComponent implements OnInit {
           this.jobs$ = jobs;
           this.totalJobs = jobs.length
         });
-      // console.log('only tags populated SEARCH RESULTS>>>', this.jobs$)
     }
 
     if (type === null && search === null && filterLocations.length > 0 && filtertags.length > 0) {
@@ -258,7 +281,6 @@ export class JobsListingComponent implements OnInit {
           this.jobs$ = jobs;
           this.totalJobs = this.jobs$.length;
         });
-      // console.log('only tags and location RESULTS>>>', this.jobs$)
     }
 
     if (type === null && search !== null && filterLocations.length === 0 && filtertags.length > 0) {
@@ -267,7 +289,6 @@ export class JobsListingComponent implements OnInit {
           this.jobs$ = jobs;
           this.totalJobs = this.jobs$.length;
         });
-      // console.log('only tags and search RESULTS>>>', this.jobs$)
     }
 
     if (type !== null && search === null && filterLocations.length === 0 && filtertags.length > 0) {
@@ -276,7 +297,6 @@ export class JobsListingComponent implements OnInit {
           this.jobs$ = jobs;
           this.totalJobs = this.jobs$.length;
         });
-      // console.log('only tags and TYPE RESULTS>>>', this.jobs$)
     }
 
 
@@ -286,7 +306,6 @@ export class JobsListingComponent implements OnInit {
           this.jobs$ = jobs;
           this.totalJobs = this.jobs$.length;
         });
-      // console.log('only tags and location and SEARCH RESULTS>>>', this.jobs$)
     }
 
     if (type !== null && search === null && filterLocations.length > 0 && filtertags.length > 0) {
@@ -295,7 +314,6 @@ export class JobsListingComponent implements OnInit {
           this.jobs$ = jobs;
           this.totalJobs = this.jobs$.length;
         });
-      // console.log('only tags and location and TYPE RESULTS>>>', this.jobs$)
     }
 
     if (type !== null && search !== null && filterLocations.length === 0 && filtertags.length > 0) {
@@ -304,7 +322,6 @@ export class JobsListingComponent implements OnInit {
           this.jobs$ = jobs;
           this.totalJobs = this.jobs$.length;
         });
-      // console.log(' Tags Search Type RESULTS>>>', this.jobs$)
     }
 
     if (type !== null && search !== null && filterLocations.length > 0 && filtertags.length > 0) {
@@ -313,13 +330,14 @@ export class JobsListingComponent implements OnInit {
           this.jobs$ = jobs;
           this.totalJobs = this.jobs$.length;
         });
-      // console.log('ALL RESULTS>>>', this.jobs$)
     }
 
+    //show message if no search results appear
     if (this.jobs$.length === 0) {
       this.isSearchEmpty = true
     }
 
+    //update job display and reset to the first page
     this.filterStore.reinitJobs(this.jobs$)
     this.jobSubscription = this.filterStore.selectSubset(20, 0).subscribe(res => { this.jobs$ = res })
     this.paginator.firstPage();

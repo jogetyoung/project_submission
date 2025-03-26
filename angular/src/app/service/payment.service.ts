@@ -12,19 +12,17 @@ import { environment } from '../../environments/environment';
 export class PaymentService {
 
   constructor() { }
-  
+
   baseUrl: string = environment.server_url
   http = inject(HttpClient)
-  stripePromise = loadStripe(stripeenvironment.stripeApiKey) 
+  stripePromise = loadStripe(stripeenvironment.stripeApiKey)
 
   async goToPayment(urls: PaymentInfo){
 
     const stripe = await this.stripePromise
     firstValueFrom(this.http.post<any>(`${this.baseUrl}/api/checkout`, urls)).then(res => {
       console.log(res)
-      // console.log("SESSION ID", res['sessionId'])
       const sessionId = res.sessionId;
-      // console.log("SESSION ID", sessionId)
 
       stripe?.redirectToCheckout({ sessionId });
     }).catch(err => {

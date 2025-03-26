@@ -42,18 +42,13 @@ public class JobService {
     @Autowired
     BizJobRepo bizJobRepo;
 
+    // Metrics for monitoring
     private Counter saveCounter;
     private Gauge memoryUsage;
 
     @Autowired
     private MeterRegistry meterRegistry;
 
-    //    public JobService(CompositeMeterRegistry meterRegistry) {
-//        saveCounter = meterRegistry.counter("save.count");
-//        memoryUsage = Gauge.builder("myapp.memory.usage", Runtime.getRuntime(), Runtime::totalMemory)
-//                           .description("Memory Usage")
-//                           .register(meterRegistry);
-//    }
     @PostConstruct
     public void init() {
         saveCounter = Counter.builder("save.count")
@@ -64,7 +59,6 @@ public class JobService {
                 .description("Memory Usage")
                 .register(meterRegistry);
 
-        // Add to init() method:
         Counter applicationCounter = Counter.builder("job.applications.count")
                 .description("Number of job applications submitted")
                 .register(meterRegistry);
@@ -76,6 +70,8 @@ public class JobService {
 
     }
 
+    // Insert a new job application with resume upload
+    // Transaction ensures both operations succeed or fail together
     @Transactional(rollbackFor = UpdatingException.class)
     public Boolean insertNewApplication(InputStream is, String contentType, long length, String userid, String jobid) throws UpdatingException {
         // Use Timer to measure execution time
@@ -123,11 +119,13 @@ public class JobService {
                 });
     }
 
+    // Update last seen timestamp for job (for notifications)
     public Boolean updateLastSeen(String jobid) {
         LocalDateTime currentDate = LocalDateTime.now().plusHours(8);
         return jobRepo.updateLastSeen(jobid, currentDate);
     }
 
+    // get all job applications for a user
     public List<AppliedJob> getAppliedJobs(String userId) {
         List<AppliedJob> jobIds = jobRepo.getAppliedByUserId(userId);
 
@@ -152,6 +150,7 @@ public class JobService {
         return jobIds;
     }
 
+    //save job
     @Transactional(rollbackFor = UpdatingException.class)
     public Boolean insertNewBookmark(String userid, String jobid) throws UpdatingException {
         saveCounter.increment();
@@ -162,6 +161,7 @@ public class JobService {
         }
     }
 
+    //get and display saved jobs for user
     public List<Job> getSavedJobs(String userId) {
         List<Long> jobIds = jobRepo.getSavedJobs(userId);
 
@@ -175,6 +175,7 @@ public class JobService {
         return savedJobs;
     }
 
+    //remove saved job
     @Transactional(rollbackFor = UpdatingException.class)
     public Boolean removeSavedJob(String userid, String jobid) throws UpdatingException {
         if ((jobRepo.removeSavedJob(userid, jobid)) && (jobRepo.decreaseBookmarkCount(jobid))) {
@@ -184,6 +185,7 @@ public class JobService {
         }
     }
 
+    //let business promote job
     @Transactional(rollbackFor = UpdatingException.class)
     public Boolean updatePromoted(String id) throws UpdatingException {
         if (jobRepo.updatePromoted(id) && listingsRepo.updatePromoted(id) != null) {
@@ -193,21 +195,28 @@ public class JobService {
         }
     }
 
+    //get all skills
     public List<Skill> getSkills() {
         return jobRepo.getSkills();
     }
 
+    //create new job post
     public Boolean insertPostWithLogo(InputStream is, String contentType, long length, Job post) {
+
+        //gives the job post its own unique id
         Random rand = new Random();
         Long jobid = 10000000 + rand.nextLong(90000000);
         post.setId(jobid);
 
+        //publication date set to current time
         LocalDateTime currentDate = LocalDateTime.now().plusHours(8);
         post.setPublication_date(currentDate);
 
+        //company logo is stored in AWS s3
         String url = s3repo.saveToS3(jobid.toString(), is, contentType, length);
         post.setCompany_logo(url);
 
+        //jobs inserted in both mongo and sql
         if (bizJobRepo.hasCompany(post.getCompany_name())) {
             if ((listingsRepo.insertNewJob(post) != null) && (bizJobRepo.insertNewPost(post))) {
                 return true;

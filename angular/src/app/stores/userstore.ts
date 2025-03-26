@@ -34,20 +34,20 @@ export class Userstore extends ComponentStore<JobList>{
   getUniqueLocations(): Observable<string[]> {
     return this.select(state =>
       state.jobs
-        .flatMap(job => job.candidate_required_location) // Extract candidate_required_location for each job
-        .map(location => location.trim()) // Trim each location string
+        .flatMap(job => job.candidate_required_location) // get candidate_required_location for each job
+        .map(location => location.trim()) // trim location string
     ).pipe(
-      map(locations => [...new Set(locations)].sort()) // Convert to a unique array of locations and sort alphabetically
+      map(locations => [...new Set(locations)].sort()) // convert to a unique array of locations and sort alphabetically
     );
   }
 
   getUniqueTags(): Observable<string[]> {
     return this.select(state =>
       state.jobs
-        .flatMap(job => job.tags) // Extract candidate_required_location for each job
-        .map(tag => tag.trim()) // Trim each location string
+        .flatMap(job => job.tags) // get candidate_required_location for each job
+        .map(tag => tag.trim()) // trim each location string
     ).pipe(
-      map(skills => [...new Set(skills)].sort()) // Convert to a unique array of locations and sort alphabetically
+      map(skills => [...new Set(skills)].sort()) // convert to a unique array of locations and sort alphabetically
     );
   }
 
@@ -56,7 +56,7 @@ export class Userstore extends ComponentStore<JobList>{
       .pipe(
         map(jobTypes => [...new Set(jobTypes)])
       );
-  } 
+  }
 
   makeOptList(value: string): Observable<string[]> {
     const filterValue = value.toLowerCase();
@@ -64,12 +64,12 @@ export class Userstore extends ComponentStore<JobList>{
       .pipe(
         map(jobTitles => jobTitles.filter(title => title.toLowerCase().includes(filterValue))),
         map(filteredTitles => [...new Set(filteredTitles)])
-      ); 
+      );
   }
 
   readonly reinitJobs = this.updater<Job[]>((slice: JobList, job: Job[]) => {
-    const newSlice: JobList = { jobs: [] }; // Empty the slice first
-    return { ...newSlice, jobs: job }; // Then update it with the new list of jobs
+    const newSlice: JobList = { jobs: [] }; // clear the slice first
+    return { ...newSlice, jobs: job }; // update it with the new list of jobs
   })
 
   readonly getMatchingJobs = (search: string): Observable<Job[]> => {
@@ -178,7 +178,7 @@ export class Userstore extends ComponentStore<JobList>{
       ))))
   }
 
-  readonly getMatchingTagsLocationType = (type: string, locations: string[], tags: string[]): Observable<Job[]> => 
+  readonly getMatchingTagsLocationType = (type: string, locations: string[], tags: string[]): Observable<Job[]> =>
   this.select<Job[]>(state => state.jobs.filter(job =>
     (job.job_type.toLowerCase().includes(type.toLowerCase())) &&
     job.tags.some(val =>tags.some(term => val.toLowerCase() === term.toLowerCase()))

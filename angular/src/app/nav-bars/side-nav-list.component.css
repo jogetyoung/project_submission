@@ -95,9 +95,6 @@ mat-icon.notification-icon {
   transform: translateY(-50%);
 }
 
-/* src/app/nav-bars/side-nav-list.component.css */
-/* Add to your existing CSS */
-
 @media (max-width: 767px) {
   .route-name {
     display: none !important; /* Always hide text on mobile */

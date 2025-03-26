@@ -41,7 +41,6 @@ public class TokenService {
                 .withClaim("id", auth.getBusiness().getId())
                 .withClaim("role", auth.getBusiness().getRole())
                 .withClaim("premium", auth.getBusiness().getPremium())
-                // .withClaim("scope", scope)
                 .sign(Algorithm.HMAC256(secretKey));
     }
     

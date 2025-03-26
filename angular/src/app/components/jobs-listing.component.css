@@ -167,8 +167,6 @@ button[type="button"] {
   color: var(--text-secondary);
 }
 
-/* Keep your existing styles and add these */
-
 .job-search-form {
   flex-wrap: wrap;
 }

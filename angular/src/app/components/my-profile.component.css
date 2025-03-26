@@ -109,9 +109,6 @@
   margin-bottom: var(--spacing-md);
 }
 
-/* src/app/components/my-profile.component.css */
-/* Keep your existing styles and add these */
-
 @media (max-width: 767px) {
   .profile-header {
     flex-direction: column;

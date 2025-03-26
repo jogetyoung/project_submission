@@ -39,10 +39,8 @@ public class ListingsRepo {
             d.append("promoted_time", j.getPromoted_time());
             d.append("tags", j.getTags());
 
-            // Check if document exists and update or insert accordingly
             Query query = Query.query(Criteria.where("_id").is(j.getId()));
             if (mongoTemplate.exists(query, Document.class, "remotejobs")) {
-                // Update the existing document
                 Update update = new Update();
                 update.set("title", j.getTitle());
                 update.set("company_name", j.getCompany_name());
@@ -51,14 +49,11 @@ public class ListingsRepo {
                 update.set("candidate_required_location", j.getCandidate_required_location());
                 update.set("description", j.getDescription());
                 update.set("company_logo", j.getCompany_logo());
-                // Don't update publication_date to preserve original
-                // Don't update promoted status
-                // Don't update promoted_time
+
                 update.set("tags", j.getTags());
 
                 mongoTemplate.updateFirst(query, update, "remotejobs");
             } else {
-                // Insert new document
                 mongoTemplate.insert(d, "remotejobs");
             }
         }
@@ -147,7 +142,6 @@ public class ListingsRepo {
             mongoTemplate.remove(query, "remotejobs");
             return true;
         } catch (Exception e) {
-            // Handle any exceptions or errors
             e.printStackTrace();
             return false;
         }

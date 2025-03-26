@@ -83,8 +83,6 @@ img {
   color: var(--error-color);
 }
 
-/* src/app/components/job-details.component.css */
-/* Keep your existing styles and add these */
 
 @media (max-width: 767px) {
   .job-details {

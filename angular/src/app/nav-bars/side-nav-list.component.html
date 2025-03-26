@@ -1,32 +1,4 @@
-<!-- <div>-->
-<!--    <div class="toggle" (click)="toggleMenu.emit(null)">-->
-<!--      <mat-icon>menu</mat-icon>-->
-<!--    </div>-->
-<!--  -->
-<!--    <mat-list *ngFor="let sideNavRoute of sideNavRoutes">-->
-<!--      <a-->
-<!--        class="item"-->
-<!--        mat-list-item-->
-<!--        [matTooltip]="!isMenuShown ? sideNavRoute.label : ''"-->
-<!--        matTooltipPosition="right"-->
-<!--        [routerLink]="sideNavRoute.route"-->
-<!--        routerLinkActive="item-selected"-->
-<!--        onclick="this.blur()"-->
-<!--        (click)="changeSelection(sideNavRoute.route); ">-->
-<!--        <mat-icon mat-list-icon>-->
-<!--          {{sideNavRoute.matIconName}}-->
-<!--        </mat-icon>-->
-<!--        <span *ngIf="sideNavRoute.notification" class="notification-bubble">-->
-<!--          <mat-icon style="color:red;" >notifications</mat-icon>-->
-<!--        </span>-->
-<!--        <span class="route-name" *ngIf="isMenuShown">{{sideNavRoute.label}}</span>-->
-<!--      </a>-->
-<!--      <mat-divider></mat-divider>-->
-<!--    </mat-list>-->
-<!--  </div>-->
-<!-- -->
 
-<!-- src/app/nav-bars/side-nav-list.component.html -->
 <div>
   <div class="toggle" (click)="toggleMenu.emit(null)">
     <mat-icon>menu</mat-icon>

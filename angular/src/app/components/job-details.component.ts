@@ -16,7 +16,7 @@ export class JobDetailsComponent implements OnInit{
   private activatedRoute = inject(ActivatedRoute)
   private listSvc = inject(ListingService)
   private jobSvc = inject(JobService)
-  snackBar = inject(MatSnackBar)
+  snackBar = inject(MatSnackBar) //to show notifs
   invalidSaveMessage: string = ""
   job!: Job
   applicant!: Applicant
@@ -62,7 +62,7 @@ export class JobDetailsComponent implements OnInit{
         })
       }
     }).catch(err => {
-      this.invalidSaveMessage = err.error.message 
+      this.invalidSaveMessage = err.error.message
     })
   }
 

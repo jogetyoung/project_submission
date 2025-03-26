@@ -38,34 +38,6 @@ public class JobRestController {
         return ResponseEntity.ok(appliedJobs);
     }
 
-//    @Timed (value = "submitting.time", description = "Time taken to insert new application")
-//    @PostMapping(path = "/{userid}/application", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-//    public ResponseEntity<String> insertNewApplication(@PathVariable("userid") String userid,
-//            @RequestPart("jobid") String jobid,
-//            @RequestPart(name = "resume", required = false) MultipartFile resume) throws UpdatingException, IOException {
-//
-//        Boolean isUpdated = false;
-//
-//        Applicant app = emailService.getUserById(userid);
-//        JobStat js = emailService.getJob(jobid);
-//        String resp = emailService.sendEmail(app, js);
-//        System.out.println("RESP>>>>" + resp);
-//
-//        try {
-//            isUpdated = jobService.insertNewApplication(resume.getInputStream(), resume.getContentType(),
-//                    resume.getSize(), userid, jobid);
-//
-//            return ResponseEntity.ok(Json.createObjectBuilder()
-//                    .add("isUpdated", isUpdated)
-//                    .build()
-//                    .toString());
-//        } catch (IOException ex) {
-//            return ResponseEntity.ok(Json.createObjectBuilder()
-//                    .add("isUpdated", isUpdated)
-//                    .build()
-//                    .toString());
-//        }
-//    }
 
     @Timed(value = "submitting.time", description = "Time taken to insert new application")
     @PostMapping(path = "/{userid}/application", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)

@@ -36,7 +36,6 @@ export class BusinessComponent implements OnInit{
     this.getBizInfo()
 
     this.notifSvc.data$.subscribe((data) => {
-      // console.log("BIZ COMP RECEIVED", data )
       this.getnotification()
     });
 
@@ -56,7 +55,6 @@ export class BusinessComponent implements OnInit{
 
   getBizInfo(){
     this.listingSvc.getJobByCompanyName(this.business.company_name).then(res => {
-      // If we successfully get a response with a logo
       let logourl = res?.company_logo || '/assets/default-business-logo.png';
       this.business.logo = logourl;
 
@@ -71,7 +69,6 @@ export class BusinessComponent implements OnInit{
       UserService.saveUser(this.business)
     }).catch(err => {
       console.log("Error fetching logo:", err);
-      // Set default logo when there's an error
       this.business.logo = '/assets/default-business-logo.png';
 
       let user = UserService.getUser();

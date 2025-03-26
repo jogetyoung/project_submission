@@ -1,33 +1,4 @@
-/*.company-details {*/
-/*    display: flex;*/
-/*    align-items: center;*/
-/*  }*/
-/*  */
-/*  .company-logo {*/
-/*    margin-right: 20px;*/
-/*  }*/
-/*  */
-/*  .job-list {*/
-/*    margin-top: 20px;*/
-/*  }*/
 
-/*  .title-underlined {*/
-/*    color: blue;*/
-/*    text-decoration: underline;*/
-/*    cursor: pointer;*/
-/*  }*/
-/*  */
-/*  .title-underlined:hover {*/
-/*    text-decoration: none;*/
-/*  }*/
-
-/*  .mat-header-cell {*/
-/*    font-size: 40px; */
-/*}*/
-
-/*th.mat-header-cell {*/
-/*  font-size: 40px; */
-/*}*/
 
 .company-details {
   display: flex;

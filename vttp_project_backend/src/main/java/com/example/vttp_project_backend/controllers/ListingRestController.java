@@ -31,12 +31,6 @@ public class ListingRestController {
         return ResponseEntity.ok(job);
     }
 
-//    @GetMapping(path = "/logo")
-//    public ResponseEntity<Job> jobDetails(@RequestParam("name") String name) {
-//        Job job = jobSvc.getJobByCompanyName(name);
-//        return ResponseEntity.ok(job);
-//    }
-
     @GetMapping(path = "/logo")
     public ResponseEntity<?> jobDetails(@RequestParam("name") String name) {
         try {

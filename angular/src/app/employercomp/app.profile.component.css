@@ -64,9 +64,6 @@
    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
  }
 
- /* src/app/employercomp/app.profile.component.css */
- /* Keep your existing styles and add these */
-
  @media (max-width: 767px) {
    .profile-header {
      flex-direction: column;

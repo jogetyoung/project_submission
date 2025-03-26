@@ -20,6 +20,7 @@ public class JobRepo {
     @Autowired
     private JdbcTemplate template;
 
+    // Insert jobs from API into database
     public void insertJobsFromApi(List<Job> allJobs) {
         for (Job job : allJobs) {
             try {

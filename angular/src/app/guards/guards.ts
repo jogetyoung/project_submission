@@ -22,8 +22,6 @@ export const roleGuard: CanActivateFn = (route, state) => {
     const expectedRole = route.data['expectedRole']
 
     if (authService.getTokenRole() !== expectedRole) {
-        // console.log("Role inside token: " + authService.getTokenRole())
-        // console.log("Expected role: " + expectedRole)
         return router.parseUrl('/')
     }
 
@@ -38,10 +36,8 @@ export const autologinGuard: CanActivateFn = (route, state) => {
     const existingTokenRole = authService.getTokenRole()
     if (existingTokenRole !== null) {
         if (existingTokenRole === "BUSINESS") {
-            // console.log(">>AutologinGuard: Redirecting to /business")
             return router.parseUrl('/business')
         } else if (existingTokenRole === "APPLICANT") {
-            // console.log(">>AutologinGuard: Redirecting to /applicant")
             return router.parseUrl('/applicant')
         }
     }
@@ -57,9 +53,6 @@ export const premiumGuard: CanActivateFn = (route, state) => {
     const expectedPremium = route.data['expectedPremium']
 
     if (authService.getTokenPremium() !== expectedPremium) {
-        // console.log(">> premiumGuard: not premium")
-        // console.log("Premium status inside token: " + authService.getTokenPremium())
-        // console.log("Expected role: " + expectedPremium)
         return router.parseUrl('/business/premium')
     }
 

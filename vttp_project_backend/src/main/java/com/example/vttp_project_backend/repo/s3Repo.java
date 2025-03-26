@@ -24,8 +24,7 @@ public class s3Repo {
         metadata.setContentLength(length);
 
         PutObjectRequest putReq = new PutObjectRequest(BUCKET_NAME, "resume/%s".formatted(imgId), is, metadata);
-        //putReq = putReq.withCannedAcl(CannedAccessControlList.PublicRead);
-        
+
         s3.putObject(putReq);
 
         String imageUrl = s3.getUrl(BUCKET_NAME, "resume/%s".formatted(imgId)).toExternalForm();

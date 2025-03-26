@@ -78,7 +78,6 @@ public class BizJobRepo {
                 LocalDateTime timing = LocalDateTime.parse(applied_date);
                 app.setApplied_date(timing);
             } catch (DateTimeException e) {
-                // Handle parsing exception
                 e.printStackTrace();
             }
 

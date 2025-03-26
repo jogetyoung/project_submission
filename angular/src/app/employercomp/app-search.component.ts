@@ -26,15 +26,11 @@ export class AppSearchComponent implements OnInit{
     this.getDBUsers()
 
   }
-  
+
   getDBUsers() {
     this.profileSvc.getFromDBTerms(this.search).then(notifications => {
       this.applicants = notifications
     });
-  }
-
-  goToProfile(){
-    
   }
 
   goback(){

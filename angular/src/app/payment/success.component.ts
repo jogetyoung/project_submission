@@ -10,7 +10,6 @@ import { AuthenticationService } from '../service/authentication.service';
   styleUrl: './success.component.css'
 })
 export class SuccessComponent implements OnInit {
-  // AfterViewInit
 
   router = inject(Router)
   authSvc = inject(AuthenticationService)

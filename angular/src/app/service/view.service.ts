@@ -28,7 +28,6 @@ export class ViewService {
     const loaded = new Date(date);
     const diffMs = now.getTime() - loaded.getTime();
 
-    // Calculate difference in seconds, minutes, hours, days
     const seconds = Math.floor(diffMs / 1000);
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
@@ -54,7 +53,7 @@ export class ViewService {
   }
 
   static getYears(): string[] {
-    const currentYear = new Date().getFullYear(); 
+    const currentYear = new Date().getFullYear();
     for (let year = 1924; year <= currentYear; year++) {
       this.years.push(year.toString());
     }
