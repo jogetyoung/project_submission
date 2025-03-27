@@ -1,1 +1,14 @@
-<p>cancel works!</p>
+<div class="cancel-container">
+  <div class="cancel-card">
+    <div class="cancel-icon">
+      <mat-icon>highlight_off</mat-icon>
+    </div>
+    <h1>Payment Cancelled</h1>
+    <p>Your premium subscription payment was not completed.</p>
+    <p>If you experienced any issues during the payment process or have questions about our premium features, please don't hesitate to contact us.</p>
+    <div class="actions">
+      <button mat-raised-button color="primary" (click)="tryAgain()">Try Again</button>
+      <button mat-stroked-button (click)="goBack()">Return to Dashboard</button>
+    </div>
+  </div>
+</div>
